@@ -1,0 +1,469 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${site_prefix}android-chrome-512x512.png</url><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Tue, 17 Dec 2019 09:30:03 +0806</lastBuildDate><pubDate>Tue, 17 Dec 2019 09:30:03 +0806</pubDate><item><title>Git 代理配置方案</title><link>https://wiki.imalan.cn/archives/Git 代理配置方案/</link><description>&lt;p&gt;国内连 Github 是个很头疼的问题。浏览器还好，只要电脑挂了代理一般就没什么问题；主要是终端使用有些麻烦。折腾出来的最佳实践如下。&lt;/p&gt;
+&lt;p&gt;部分来自：&lt;a href="https://molunerfinn.com/git-ssh2https/"&gt;https://molunerfinn.com/git-ssh2https/&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;设置代理&lt;/h2&gt;
+&lt;p&gt;首先，代码仓库尽量使用 HTTPS 协议，也就是以 &lt;code&gt;https://github.com&lt;/code&gt; 开头的链接，而不是以 &lt;code&gt;git@github.com&lt;/code&gt; 开头的 SSH 链接，这样就可以通过 &lt;code&gt;git config&lt;/code&gt; 方便地设置代理：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git config --global http.proxy socks5://127.0.0.1:1080
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;网上广泛流传的针对 &lt;code&gt;https.proxy&lt;/code&gt; 也设置一遍代理是不必要的。&lt;/p&gt;
+&lt;p&gt;注意，这样设置后 push 时可能会提示&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ServicePointManager 不支持具有 socks5 方案的代理&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但是仍然能 push 成功。最好的解决方法是在本地使用 HTTP/HTTPS 代理，例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git config --global http.proxy http://127.0.0.1:1081
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;具体的端口视你电脑本地的代理软件（Shadowsocks、Clash等）而异。&lt;/p&gt;
+&lt;h2&gt;设置仓库&lt;/h2&gt;
+&lt;p&gt;以上设置只针对使用 HTTPS 协议的仓库有效，如果已经使用了 SSH 协议，则可以如此修改：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git remote set-url origin https://xxxxx &lt;span class="c1"&gt;#your https repo url&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;查看是否修改成功：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git remote -v
+origin  https://github.com/xxx/xxx.github.io.git &lt;span class="o"&gt;(&lt;/span&gt;fetch&lt;span class="o"&gt;)&lt;/span&gt;
+origin  https://github.com/xxx/xxx.github.io.git &lt;span class="o"&gt;(&lt;/span&gt;push&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;设置 Git&lt;/h2&gt;
+&lt;p&gt;使用 HTTPS 协议后 push 时需要密码，我们可以将密码保存起来，免得重复输入。编辑或新建文件：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vi ~/.git-credentials
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;添加一行：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;https://用户名:密码@github.com&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;保存退出，然后执行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git config --global credential.helper store
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;即可。&lt;/p&gt;
+&lt;h3&gt;提升安全性&lt;/h3&gt;
+&lt;p&gt;以上可见用户名与密码是明文存储在配置文件中的，如果你觉得不够安全可以继续下面的步骤。&lt;/p&gt;
+&lt;p&gt;对于 Mac 而言，可以将 git 默认的 &lt;code&gt;credential.helper&lt;/code&gt; 指定成 &lt;code&gt;osxkeychain&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git config --global credential.helper osxkeychain&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后可以通过&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git config credential.helper
+osxkeychain&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;来查看是否指定成功了。之后用户名密码将会保存在系统自带的 &lt;code&gt;keychain access&lt;/code&gt; 里，也就是通过 macOS 的钥匙链管理密码。&lt;/p&gt;
+&lt;h3&gt;Windows&lt;/h3&gt;
+&lt;p&gt;使用微软开发的&lt;a href="https://github.com/Microsoft/Git-Credential-Manager-for-Windows"&gt;Git-Credential-Manager-for-Windows&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;最新版下载地址：&lt;a href="https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/latest"&gt;https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/latest&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;安装之后，在控制台里输入：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git config --global credential.helper manager&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;之后还是一样的，某个项目里输入用户名密码之后，以后就再也不用输入了。你可以在&lt;code&gt;管理网络密码&lt;/code&gt;里找到你的用户密码——其实不是密码，而是 token 了，因为 &lt;code&gt;Git-Credential-Manager-for-Windows&lt;/code&gt; 它会自动调用 Github 的 API 生成 &lt;code&gt;Personal access tokens&lt;/code&gt;，你可以在你的 Github 的 `Personal settings 找到它。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Git 代理配置方案/</guid><pubDate>Sun, 09 Jun 2019 00:00:00 +0806</pubDate></item><item><title>使用 GitHub webhook 自动部署</title><link>https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</link><description>&lt;p&gt;我的三个静态站点：&lt;a href="https://www.imalan.cn"&gt;三無計劃&lt;/a&gt;，&lt;a href="https://wiki.imalan.cn"&gt;無知識&lt;/a&gt;，&lt;a href="https://lab.imalan.cn"&gt;無項目&lt;/a&gt;均使用 Travis-CI 自动构建。在此之前，三个站点都托管在 GitHub Pages 或者 Coding Pages 上，但前者在大陆速度缓慢，后者时常抽风，总体表现都不如我自己的服务器，因此决定将站点放在自己这里。&lt;/p&gt;
+&lt;p&gt;GitHub webhook 可在仓库发生某些事件（例如 push）时向某指定 URL 发起 POST 请求，请求 body 就是详细的 push 事件内容，因此可以在服务器上根据请求部署站点，比如直接从 Github 拉取最新源码然后构建，或者由 CI 服务构建好之后拉取最新的 build 到服务器上。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;首先保存以下 PHP 到服务器上可从外部访问的地方，并在 Github 对应仓库设置中添加一个 hook，URL 就填该 PHP 的网址，例如 &lt;code&gt;https://api.imalan.cn/somepath/hook.php&lt;/code&gt;。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class="sd"&gt;/**&lt;/span&gt;
+&lt;span class="sd"&gt; * GitHub Webhook 服务端处理&lt;/span&gt;
+&lt;span class="sd"&gt; * 根据 Repo 与 Branch 的 push 事件运行脚本&lt;/span&gt;
+&lt;span class="sd"&gt; * &lt;/span&gt;
+&lt;span class="sd"&gt; * @author 熊猫小A | AlanDecode&lt;/span&gt;
+&lt;span class="sd"&gt; * @link https://www.imalan.cn&lt;/span&gt;
+&lt;span class="sd"&gt; */&lt;/span&gt;
+
+&lt;span class="k"&gt;function&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;endpoints&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// check repository and branch&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;repository&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;full_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;repo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ref&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;refs/heads/&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;branch&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// excute&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;run&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+            &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;action&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;Exception&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;getMessage&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// data&lt;/span&gt;
+    &lt;span class="nv"&gt;$rawInput&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file_get_contents&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;php://input&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nv"&gt;$data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;json_decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$rawInput&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// config&lt;/span&gt;
+    &lt;span class="nv"&gt;$config_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;__DIR__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/config.json&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nb"&gt;file_exists&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config_path&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Exception&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Can&amp;#39;t find &amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;$config_path&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="nv"&gt;$config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;json_decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;file_get_contents&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config_path&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// verify&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="k"&gt;empty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;key&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$_SERVER&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;HTTP_X_HUB_SIGNATURE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;die&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;No signature presented.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="k"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$algo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$hash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;explode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;=&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$_SERVER&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;HTTP_X_HUB_SIGNATURE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="nv"&gt;$signature&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;hash_hmac&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$algo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$rawInput&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;key&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$signature&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nv"&gt;$hash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;die&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Signature doesn&amp;#39;t match.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// excute&lt;/span&gt;
+    &lt;span class="nx"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;Exception&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;getMessage&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在同一目录下创建 config.json 文件，形如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;key&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;xxxxxxxx&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;endpoints&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;quot;repo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;AlanDecode/some-Repo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;quot;branch&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;build&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;quot;action&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Deploy site from latest build.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;quot;run&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/path/to/your.sh&amp;quot;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其中，&lt;code&gt;key&lt;/code&gt; 字段用于鉴权，自己设置一个，然后填写到 GitHub webhook 设置的 secret 字段那里。这是可选的，但建议设置。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;endpoints&lt;/code&gt; 中保存了所有要处理的东西。&lt;code&gt;repo&lt;/code&gt; 是仓库名，&lt;code&gt;branch&lt;/code&gt; 是分支名，&lt;code&gt;action&lt;/code&gt; 是备注，可以随意填，&lt;code&gt;run&lt;/code&gt; 填写要运行的脚本文件路径。&lt;/p&gt;
+&lt;p&gt;脚本可以很简单：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="nb"&gt;cd&lt;/span&gt; /home/sites/wiki.imalan.cn &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; git pull --rebase
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;……也可以很复杂，不演示了。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;实际上，还有可能遇到权限问题，另开一篇说。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</guid><pubDate>Fri, 14 Jun 2019 09:20:00 +0806</pubDate></item><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+    &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd somepath &amp;amp;&amp;amp; git pull --rebase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;把这段代码保存为 test.php，在终端中使用 &lt;code&gt;php test.php&lt;/code&gt; 执行可以得到正确的结果，但是在浏览器中访问这个 PHP 却不行。&lt;/p&gt;
+&lt;p&gt;除了安全模式、shell_exec 被禁用的问题之外，最大的可能是运行权限的问题。尝试在终端与浏览器中访问包含以下代码的 PHP 文件：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+    &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;whoami&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;十有八九会的到不同的结果，例如在终端中是 &lt;code&gt;alan&lt;/code&gt;（我的登录账户），在浏览器中是 &lt;code&gt;www&lt;/code&gt;（Nginx 的账户）。因此在浏览器中时 PHP 是以 www 去执行 git pull 的，这就会有权限问题。&lt;/p&gt;
+&lt;p&gt;可以让 &lt;code&gt;www&lt;/code&gt; 账户表现得像 &lt;code&gt;alan&lt;/code&gt; 账户，但是非常不推荐。最好的办法就是在终端里切换到 www 用户再重新 git clone，让本地 repo 的所有权为 www，即可。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</guid><pubDate>Fri, 14 Jun 2019 09:42:00 +0806</pubDate></item><item><title>SSH 秘钥登陆远程服务器</title><link>https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/</link><description>&lt;p&gt;首先在本机上生成密钥对：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh-keygen -t rsa
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;生成的本地秘钥位于：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;~/.ssh/id_rsa  #私钥
+~/.ssh/id_rsa.pub #公钥&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并将本地的公钥导入远程服务器，在本机操作：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cat ~/.ssh/id_rsa.pub &lt;span class="p"&gt;|&lt;/span&gt; ssh 远程用户名@远程服务器 &lt;span class="s1"&gt;&amp;#39;cat - &amp;gt;&amp;gt; ~/.ssh/authorized_keys&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;然后在远程服务器操作：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;chmod &lt;span class="m"&gt;600&lt;/span&gt; ~/.ssh/authorized_keys
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在远程服务器中开启秘钥登陆：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vim /etc/ssh/sshd_config
+PubkeyAuthentication yes  //将该项改为yes
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;重启远程机 ssh 服务：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/etc/init.d/sshd restart
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在本地编辑或添加配置文件：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vim ~/.ssh/config
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;加入以下内容：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Host 服务器名字，助记
+    HostName IP或者域名
+    Port 端口
+    User 用户名
+    IdentityFile ~/.ssh/id_rsa&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;即可通过 &lt;code&gt;ssh 服务器名&lt;/code&gt; 快速登陆远程服务器。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;从安全性上考虑，也更推荐本文这种基于密钥的鉴权方式，而不是使用密码。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/</guid><pubDate>Fri, 14 Jun 2019 17:51:00 +0806</pubDate></item><item><title>Ubuntu 18.04 Bionic 国内软件源镜像</title><link>https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/</link><description>&lt;p&gt;替换软件源方法：首先备份原来的软件源配置：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo mv /etc/apt/sources.list /etc/apt/sources.list.old
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;创建新的配置文件，内容为下文所述的源列表：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo vim /etc/apt/sources.list
+&lt;span class="c1"&gt;# 添加下文所述软件源列表&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;然后依次：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get update
+sudo apt-get upgrade
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;中科大源&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;阿里源&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;163 源&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;清华源&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/</guid><pubDate>Fri, 05 Jul 2019 15:19:00 +0806</pubDate></item><item><title>编译与配置 Boost 库</title><link>https://wiki.imalan.cn/archives/编译与配置 Boost 库/</link><description>&lt;p&gt;Boost 是 C++ 的一个增强库，可以看做 std 的扩展。在 Windows 上编译安装很简单。&lt;/p&gt;
+&lt;p&gt;首先下载代码包：&lt;a href="https://www.boost.org/users/history/"&gt;https://www.boost.org/users/history/&lt;/a&gt; 并解压，使用 Visual Studio 提供的 x64 兼容命令提示符工具进入源码目录，运行目录下的 bootstrap.bat 脚本，目录下将出现 bjam.exe 与 b2.exe 等文件。之后即可使用 bjam 工具编译。&lt;/p&gt;
+&lt;p&gt;实际上 Boost 库的绝大多数组件都是 header-only 的，也就是无需进一步编译生成可执行文件，只需要引入头文件即可，但是以下几个组件除外：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Boost.Chrono&lt;/li&gt;
+&lt;li&gt;Boost.Context&lt;/li&gt;
+&lt;li&gt;Boost.Filesystem&lt;/li&gt;
+&lt;li&gt;Boost.GraphParallel&lt;/li&gt;
+&lt;li&gt;Boost.IOStreams&lt;/li&gt;
+&lt;li&gt;Boost.Locale&lt;/li&gt;
+&lt;li&gt;Boost.Log&lt;/li&gt;
+&lt;li&gt;Boost.MPI&lt;/li&gt;
+&lt;li&gt;Boost.ProgramOptions&lt;/li&gt;
+&lt;li&gt;Boost.Python&lt;/li&gt;
+&lt;li&gt;Boost.Regex&lt;/li&gt;
+&lt;li&gt;Boost.Serialization&lt;/li&gt;
+&lt;li&gt;Boost.Signals&lt;/li&gt;
+&lt;li&gt;Boost.System&lt;/li&gt;
+&lt;li&gt;Boost.Thread&lt;/li&gt;
+&lt;li&gt;Boost.Timer&lt;/li&gt;
+&lt;li&gt;Boost.Wave&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它们需要在编译时用 &lt;code&gt;--with-&lt;/code&gt; 参数单独指定。编译命令如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;bjam stage --prefix&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;C:\Dev\Boost\build&amp;quot;&lt;/span&gt; --with-regex --with-system --with-thread address-model&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;64&lt;/span&gt; --build-type&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;complete&lt;/span&gt; debug release install
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;编译为 64 位版本，并指定了附加编译 Boost.Regex（正则），Boost.System，Boost.Thread 几个库。其中 --prefix 为生成的头文件与库存放的目录，可以自行更改。&lt;/p&gt;
+&lt;p&gt;完成后对应目录下会出现 include 与 lib 两个文件夹，将 include/boost-xxx 添加到 VS 的包含目录， lib 添加到库目录，VS 编译项目时会自动搜索链接库。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;测试代码（正则表达式匹配邮件主题）：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;boost/regex.hpp&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;boost&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;regex&lt;/span&gt; &lt;span class="n"&gt;pat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;^Subject: (Re: |Aw: )*(.*)&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;getline&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cin&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;boost&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;smatch&lt;/span&gt; &lt;span class="n"&gt;matches&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;boost&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;regex_match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;matches&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pat&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+            &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;matches&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;然后将以下内容保存为 text.txt：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;To: George Shmidlap
+From: Rita Marlowe
+Subject: Will Success Spoil Rock Hunter?
+---
+See subject.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在 CMD 中测试：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;text.exe &amp;lt; test.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Will Success Spoil Rock Hunter?&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以上。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/编译与配置 Boost 库/</guid><pubDate>Sat, 06 Jul 2019 15:01:00 +0806</pubDate></item><item><title>Windows 实现有线 + Wifi 同时上网（分管内外网）</title><link>https://wiki.imalan.cn/archives/Windows 实现有线 + Wifi 同时上网（分管内外网）/</link><description>&lt;p&gt;现在的笔记本大多是双网卡，一个有线一个无线。若同时连上有线与 Wifi，Windows 优先使用有线连接。有时我们需要两者皆能联网，例如我的场景：Wifi 连接实验室内网，有线连接校园网，方便挂 PT。那么可按本文操作如下。&lt;/p&gt;
+&lt;p&gt;首先连接有线与无线，在 CMD 管理员模式中输出当前路由表：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;route print&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;顶部两行以 0.0.0.0 开头的路由即分别是有线与无线连接，注意最后一项「跃点数」，数值越低优先级越高。之所以不能在使用有线时同时使用 WiFi 就是由于这两条路由打架，系统按照跃点数选择了有线连接：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;网络目标    网络掩码     网关            接口               跃点数
+0.0.0.0    0.0.0.0    172.17.104.1    172.17.105.76     26
+0.0.0.0    0.0.0.0    192.168.2.1     192.168.2.102     35&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;要做的是删除其中一条，并重新添加为合理的路由形式。本文中保留有线连接不动（172.17.x.x）,调整 Wifi 连接（192.168.x.x）。&lt;/p&gt;
+&lt;p&gt;首先记下上面的路由表，然后删除原来的路由：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;route delete 0.0.0.0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重新添加有线路由，注意内容要和上面对应&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;route add 0.0.0.0 mask 0.0.0.0  172.17.104.1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;即这个格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;route add 网络目标 mask 网络掩码 网关&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后添加 WiFi 内网路由，这里认为 192.168.0.0/16（即 192.168.x.x）都属于实验室内网，则子网掩码为 255.255.0.0，网关为之前路由表的结果：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;route add 192.168.0.0 mask 255.255.0.0 192.168.2.1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;即可。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;大多数情况下网关地址不会轻易改变，因此可以将以上流程写成批处理文件：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;%1&lt;/span&gt; mshta vbscript:CreateObject(&lt;span class="s2"&gt;&amp;quot;Shell.Application&amp;quot;&lt;/span&gt;).ShellExecute(&lt;span class="s2"&gt;&amp;quot;cmd.exe&amp;quot;&lt;/span&gt;,&lt;span class="s2"&gt;&amp;quot;/c &lt;/span&gt;&lt;span class="nv"&gt;%~s0&lt;/span&gt;&lt;span class="s2"&gt; ::&amp;quot;&lt;/span&gt;,&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;,&lt;span class="s2"&gt;&amp;quot;runas&amp;quot;&lt;/span&gt;,1)(window.close)&lt;span class="p"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="k"&gt;exit&lt;/span&gt;
+route delete 0.0.0.0
+route add 0.0.0.0 mask 0.0.0.0  172.17.104.1
+route add 192.168.0.0 mask 255.255.0.0 192.168.2.1
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其中第一行是请求管理员权限。&lt;/p&gt;
+&lt;p&gt;网络盛传的把以上路由都添加为永久路由的方法不推荐，因为如此的话重启后也不会变回正常状态，可能影响电脑在别处联网。最好保存为批处理，在合适的时候运行一下即可，若有不对重启即可恢复原本状态。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Windows 实现有线 + Wifi 同时上网（分管内外网）/</guid><pubDate>Mon, 26 Aug 2019 09:14:00 +0806</pubDate></item><item><title>使用 Grid-Stride Loop 复用 CUDA 线程</title><link>https://wiki.imalan.cn/archives/使用 Grid-Stride Loop 复用 CUDA 线程/</link><description>&lt;p&gt;在阅读 CUDA 文档的过程中看到这一篇博文：&lt;a href="https://devblogs.nvidia.com/cuda-pro-tip-write-flexible-kernels-grid-stride-loops/"&gt;CUDA Pro Tip: Write Flexible Kernels with Grid-Stride Loops&lt;/a&gt;，觉得是很不错的思想（技巧），因此记录下来，并且附上一些验证数据。&lt;/p&gt;
+&lt;h3&gt;In theory&lt;/h3&gt;
+&lt;p&gt;问题起源：一般使用 CUDA 并行计算时，总使用一个线程对应一块数据，例如计算两向量之和：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// device code to compute c = a + b;&lt;/span&gt;
+&lt;span class="c1"&gt;// this method assumes we have enough threads to do the computation&lt;/span&gt;
+&lt;span class="c1"&gt;// enough means larger than the size of array a, b and c&lt;/span&gt;
+&lt;span class="n"&gt;__global__&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;addArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// assume we have 1k elements to compute, in this way&lt;/span&gt;
+    &lt;span class="c1"&gt;// thread 0 is responsible for c[0] = a[0] + b[0]&lt;/span&gt;
+    &lt;span class="c1"&gt;// thread 1 is responsible for c[1] = a[1] + b[1]&lt;/span&gt;
+    &lt;span class="c1"&gt;// and so on&lt;/span&gt;
+    &lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;blockIdx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;blockDim&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;threadIdx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="cp"&gt;#define ARRAYSIZE 1000000&lt;/span&gt;
+&lt;span class="cp"&gt;#define BLOCKSIZE 1024  &lt;/span&gt;&lt;span class="c1"&gt;// can be any size, better be multiple of 32&lt;/span&gt;
+
+&lt;span class="n"&gt;__host__&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+    &lt;span class="c1"&gt;// calculate the minmal number of blocks to cover all data&lt;/span&gt;
+    &lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;numBlocks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ARRAYSIZE&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;BLOCKSIZE&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;BLOCKSIZE&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;addArray&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;numBlocks&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;BLOCKSIZE&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ARRAYSIZE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如我们所知，CUDA 中线程组织结构从高到低分为 Grid、Block、Warp 三层，这三层中，每一层都有自己能容纳的最大线程数量，例如在我的设备（1080Ti）上，每个 Block 最多容纳 1024 个线程，每个 Warp 固定是 32 个线程，而每个 Grid 能容纳的数量就比较大了（2147483647, 65535, 65535）。同时还有一个条件，每个 multiprocessor 最大容纳 2048 个线程。总而言之，GPU 虽然能提供大量的线程，但并不是无限的。&lt;/p&gt;
+&lt;p&gt;在不讨论显存大小的前提下，总可能出现这样的情况：程序需要的线程数量大于 GPU 可以提供的线程数量。此时上面的代码就不行了，但下面这种处理方式就可以适应：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// another version to compute c = a + b&lt;/span&gt;
+&lt;span class="c1"&gt;// this uses grid loop to reuse some threads(if needed)&lt;/span&gt;
+&lt;span class="n"&gt;__global__&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;addArray_gird_loop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// total number of threads in one grid&lt;/span&gt;
+    &lt;span class="c1"&gt;// which is accessible to one kernel&lt;/span&gt;
+    &lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;stride&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;blockDim&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;gridDim&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;blockIdx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;blockDim&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;threadIdx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// compute using the whole grid at once&lt;/span&gt;
+    &lt;span class="c1"&gt;// the reuse the threads in the same grid&lt;/span&gt;
+    &lt;span class="c1"&gt;// assume we have 1k elements to compute, and a stride of 100&lt;/span&gt;
+    &lt;span class="c1"&gt;// thread 0 is responsible for c[0] = a[0] + b[0]&lt;/span&gt;
+    &lt;span class="c1"&gt;//                             c[100] = a[100] + b[100]...&lt;/span&gt;
+    &lt;span class="c1"&gt;// thread 1 is responsible for c[1] = a[1] + b[1]&lt;/span&gt;
+    &lt;span class="c1"&gt;//                             c[101] = a[101] + b[101]...&lt;/span&gt;
+    &lt;span class="c1"&gt;// and so on&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;stride&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="cp"&gt;#define ARRAYSIZE 1000000&lt;/span&gt;
+&lt;span class="cp"&gt;#define BLOCKSIZE 1024  &lt;/span&gt;&lt;span class="c1"&gt;// can be any size, better be multiple of 32&lt;/span&gt;
+&lt;span class="cp"&gt;#define GRIDSIZE 10  &lt;/span&gt;&lt;span class="c1"&gt;// can be any size, better be multipel of multiprocessor count&lt;/span&gt;
+
+&lt;span class="n"&gt;__host__&lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+    &lt;span class="n"&gt;addArray_gird_loop&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;numBlocks&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;BLOCKSIZE&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ARRAYSIZE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在这种实现中，每个线程并不只负责一块数据，而是负责从 index 开始，stride 为步长的一组数据。在 kernel 中每个 for 循环的步长（Stride）刚好是一个 Grid 的大小，因此称作（Grid-Stride Loop）。&lt;/p&gt;
+&lt;p&gt;这种实现的特征是 Grid 的大小可以是任意的，因此解决了「线程不够用」的问题。应该注意到，当 Grid 的大小足够大时（大于等于上一种方法计算出的 &lt;code&gt;numBlocks&lt;/code&gt;），这种方法就退化到第一种方法。&lt;/p&gt;
+&lt;p&gt;另外还需要注意到，当 &lt;code&gt;GRIDSIZE&lt;/code&gt; 与 &lt;code&gt;BLOCKSIZE&lt;/code&gt; 都取 1 时，GPU 里实际上只有一个线程在跑，于是退化为串行程序。&lt;/p&gt;
+&lt;p&gt;文首提到的文章总结了这种思路的几个好处：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;伸缩性与线程复用&lt;/strong&gt;。可扩展性是指，这种方法在理论上可以支持任意规模的并行计算，而不受设备提供的最大线程数限制；另外这种实现允许我们采用更合理的 &lt;code&gt;GRIDSIZE&lt;/code&gt;，比如常推荐的，使用 multiprocessor 数量的倍数。线程复用则可以帮助程序省去线程启动与销毁的开销。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;易于调试&lt;/strong&gt;。如上文所述，当 &lt;code&gt;GRIDSIZE&lt;/code&gt; 与 &lt;code&gt;BLOCKSIZE&lt;/code&gt; 都取 1 时程序实际退化为串行程序，这为调试提供了方便（例如在 kernel 中使用 printf 可以得到顺序的结果）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;可移植性与可读性&lt;/strong&gt;。这种的写法可以轻易地修改为 CPU 代码，另外还有类似 &lt;a href="https://devblogs.nvidia.com/parallelforall/simple-portable-parallel-c-hemi-2/"&gt;Hemi&lt;/a&gt; 这样的库专门为 Grid-Stride Loop 提供支持，带来了 C++ 11 风格的循环语法：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;HEMI_LAUNCHABLE&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;addArray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;float&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="nl"&gt;i&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;hemi&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;grid_stride_range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+      &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;In real world&lt;/h3&gt;
+&lt;p&gt;理论上说 Grid-Stride Loop 一切都很美好，但是由于每个线程要进行循环，想必会影响性能，这里我给出自己的测试结果。&lt;/p&gt;
+&lt;p&gt;测试设备：GeForce GTX 1080Ti&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;CUDA Driver Version / Runtime Version          9.0 / 9.0
+CUDA Capability Major/Minor version number:    6.1
+Maximum number of threads per multiprocessor:  2048
+Maximum number of threads per block:           1024
+Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;首先看不使用 Grid-Stride Loop（GS Loop） 的方法中 &lt;code&gt;GRIDSIZE&lt;/code&gt; 和时间相对 ARRAYSIZE 的变化：&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.57788944723617" data-width="721" data-height="398"&gt;&lt;img src="../assets/6d25c3996e10cb3f76025eb9d2c034a0.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;固定 &lt;code&gt;GRIDSIZE=10&lt;/code&gt;，使用 Grid-Stride Loop 的方法：&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 96.64879356568365" data-width="721" data-height="373"&gt;&lt;img src="../assets/ac92e89173d7781e4c52292871b26a19.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;直观对比两种方法用时：&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.72681704260651" data-width="724" data-height="399"&gt;&lt;img src="../assets/d1578d85e5da708987b7c8254075a43e.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可见当 ARRAYSIZE 较大时，两种方法性能有可观的差距。当然，这个测试只是理论上的，实际应用中不可能只用 10 个 Block 来计算。&lt;/p&gt;
+&lt;p&gt;另外，若将显存大小纳入讨论则情况会稍有不同。向量相加这个例子中需要为相加的两个向量以及存储结果的一个向量在 GPU 上分配显存，有时会遇到这样的情况：线程还没用完，显存先用完了。这种情况与算法相关，并不是所有的程序都需要这么巨大的显存量，但需要巨大线程数的场景比比皆是。&lt;/p&gt;
+&lt;p&gt;另外，如何将其扩展到高维 Tensor 还有待思考。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/使用 Grid-Stride Loop 复用 CUDA 线程/</guid><pubDate>Sun, 29 Sep 2019 00:00:00 +0806</pubDate></item><item><title>WSL 2 中配置终端走主机代理</title><link>https://wiki.imalan.cn/archives/WSL 2 中配置终端走主机代理/</link><description>&lt;p&gt;微软在 WSL 2 中更改了 Linux 子系统与 Windows 主机的通信方式，以往通过 localhost 即可互相访问，现在则不行，具体内容见 &lt;a href="https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-ux-changes"&gt;WSL 1 与 WSL 2 的用户体验差异&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;之前可以在 Windows 主机内通过 Clash 或者其它软件开启一个本地代理，并允许通过 LAN 连接，来实现 WSL 终端魔法上网，经由 WSL 2 的更改后就需要加上获取 Windows 主机 IP 这一步。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# 获取主机 IP&lt;/span&gt;
+&lt;span class="c1"&gt;# 主机 IP 保存在 /etc/resolv.conf 中&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;hostip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat /etc/resolv.conf &lt;span class="p"&gt;|&lt;/span&gt;grep -oP &lt;span class="s1"&gt;&amp;#39;(?&amp;lt;=nameserver\ ).*&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;假设 Windows 上的 Clash 已允许 LAN 连接，监听在 8888 端口，SOCKS5 代理监听在 8889 端口，设置终端代理的方法与以往相同：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;https_proxy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;http://&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;hostip&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:8888&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;http_proxy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;http://&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;hostip&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:8888&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;all_proxy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;socks5://&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;hostip&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:8889&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;为了方便日常使用，可以将以上命令保存为 alias。添加以下内容到 &lt;code&gt;~/.bashrc&lt;/code&gt; 或者 &lt;code&gt;~/.zshrc&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;hostip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;cat /etc/resolv.conf &lt;span class="p"&gt;|&lt;/span&gt;grep -oP &lt;span class="s1"&gt;&amp;#39;(?&amp;lt;=nameserver\ ).*&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;setss&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;export https_proxy=&amp;quot;http://${hostip}:8888&amp;quot;;export http_proxy=&amp;quot;http://${hostip}:8888&amp;quot;;export all_proxy=&amp;quot;socks5://${hostip}:8889&amp;quot;;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;之后就可以在 WSL 2 中使用 &lt;code&gt;setss&lt;/code&gt; 设置终端代理。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/WSL 2 中配置终端走主机代理/</guid><pubDate>Thu, 24 Oct 2019 16:30:00 +0806</pubDate></item><item><title>Marching Cubes 算法提取等值面</title><link>https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</link><description>&lt;p&gt;不失一般性，以抽取 0 等值面举例，假设面一侧为正值，另一侧为负值。则 Marching Cubes 算法总体上通过两个步骤建立这个等值面的 mesh 模型：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;估计每个 cell 内的三角面片数量与连接方式（拓扑结构）&lt;/li&gt;
+&lt;li&gt;计算确定个面片的每个顶点的具体位置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;&lt;p&gt;这里的 cell 区别于 voxel。voxel 可认为是对三维场的采样与离散，采样点位于 voxel 中心，这些采样点作为顶点则构成了 cell。即 cell 是以采样点为顶点的三维网格。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;具体而言，对每一个 cell，首先确定这个 cell 内部面片的拓扑结构。即通过判断这个 cell 各顶点的符号来判断 cell 哪部分处于面内。当相邻两顶点符号改变时，表名这条边穿过了面，因此该边上必定有一个面片顶点（vertice）。这样，每个顶点都有两种情况：面内、面外，总共就有2^8 = 256 中情况，这些情况可归类为 15 中基本情况：&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 95.5592105263158" data-width="581" data-height="304"&gt;&lt;img src="../assets/cf8912ad3cd96f93f718ee2aa3864674.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;图中黄色背景的代表 cell 内只有一个连续面片的情况；其它则代表有多个面片的情况。&lt;/p&gt;
+&lt;p&gt;得到拓扑结构后，对每条包含 vertice 的边进行线性插值，找到 0 值的位置，即可作为 vertice 的坐标，由此完成 mesh 提取。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</guid><pubDate>Fri, 01 Nov 2019 16:06:00 +0806</pubDate></item></channel></rss>
