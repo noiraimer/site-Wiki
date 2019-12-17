@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${site_prefix}android-chrome-512x512.png</url><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Tue, 17 Dec 2019 11:29:55 +0806</lastBuildDate><pubDate>Tue, 17 Dec 2019 11:29:55 +0806</pubDate><item><title>Git 代理配置方案</title><link>https://wiki.imalan.cn/archives/Git 代理配置方案/</link><description>&lt;p&gt;国内连 Github 是个很头疼的问题。浏览器还好，只要电脑挂了代理一般就没什么问题；主要是终端使用有些麻烦。折腾出来的最佳实践如下。&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${site_prefix}android-chrome-512x512.png</url><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Tue, 17 Dec 2019 12:27:20 +0806</lastBuildDate><pubDate>Tue, 17 Dec 2019 12:27:20 +0806</pubDate><item><title>Git 代理配置方案</title><link>https://wiki.imalan.cn/archives/Git 代理配置方案/</link><description>&lt;p&gt;国内连 Github 是个很头疼的问题。浏览器还好，只要电脑挂了代理一般就没什么问题；主要是终端使用有些麻烦。折腾出来的最佳实践如下。&lt;/p&gt;
 &lt;p&gt;部分来自：&lt;a href="https://molunerfinn.com/git-ssh2https/"&gt;https://molunerfinn.com/git-ssh2https/&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;设置代理&lt;/h2&gt;
 &lt;p&gt;首先，代码仓库尽量使用 HTTPS 协议，也就是以 &lt;code&gt;https://github.com&lt;/code&gt; 开头的链接，而不是以 &lt;code&gt;git@github.com&lt;/code&gt; 开头的 SSH 链接，这样就可以通过 &lt;code&gt;git config&lt;/code&gt; 方便地设置代理：&lt;/p&gt;
@@ -431,11 +431,11 @@ Maximum number of threads per block:           1024
 Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
 Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;首先看不使用 Grid-Stride Loop（GS Loop） 的方法中 &lt;code&gt;GRIDSIZE&lt;/code&gt; 和时间相对 ARRAYSIZE 的变化：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.57788944723617" data-width="721" data-height="398"&gt;&lt;img src="../assets/6d25c3996e10cb3f76025eb9d2c034a0.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.57788944723617" data-width="721" data-height="398"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/6d25c3996e10cb3f76025eb9d2c034a0.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;固定 &lt;code&gt;GRIDSIZE=10&lt;/code&gt;，使用 Grid-Stride Loop 的方法：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 96.64879356568365" data-width="721" data-height="373"&gt;&lt;img src="../assets/ac92e89173d7781e4c52292871b26a19.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 96.64879356568365" data-width="721" data-height="373"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/ac92e89173d7781e4c52292871b26a19.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;直观对比两种方法用时：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.72681704260651" data-width="724" data-height="399"&gt;&lt;img src="../assets/d1578d85e5da708987b7c8254075a43e.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.72681704260651" data-width="724" data-height="399"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/d1578d85e5da708987b7c8254075a43e.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;可见当 ARRAYSIZE 较大时，两种方法性能有可观的差距。当然，这个测试只是理论上的，实际应用中不可能只用 10 个 Block 来计算。&lt;/p&gt;
 &lt;p&gt;另外，若将显存大小纳入讨论则情况会稍有不同。向量相加这个例子中需要为相加的两个向量以及存储结果的一个向量在 GPU 上分配显存，有时会遇到这样的情况：线程还没用完，显存先用完了。这种情况与算法相关，并不是所有的程序都需要这么巨大的显存量，但需要巨大线程数的场景比比皆是。&lt;/p&gt;
 &lt;p&gt;另外，如何将其扩展到高维 Tensor 还有待思考。&lt;/p&gt;
@@ -463,7 +463,7 @@ Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/cod
 &lt;blockquote&gt;&lt;p&gt;这里的 cell 区别于 voxel。voxel 可认为是对三维场的采样与离散，采样点位于 voxel 中心，这些采样点作为顶点则构成了 cell。即 cell 是以采样点为顶点的三维网格。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;具体而言，对每一个 cell，首先确定这个 cell 内部面片的拓扑结构。即通过判断这个 cell 各顶点的符号来判断 cell 哪部分处于面内。当相邻两顶点符号改变时，表名这条边穿过了面，因此该边上必定有一个面片顶点（vertice）。这样，每个顶点都有两种情况：面内、面外，总共就有2^8 = 256 中情况，这些情况可归类为 15 中基本情况：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 95.5592105263158" data-width="581" data-height="304"&gt;&lt;img src="../assets/cf8912ad3cd96f93f718ee2aa3864674.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure class="pswp-item" style="flex: 95.5592105263158" data-width="581" data-height="304"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/cf8912ad3cd96f93f718ee2aa3864674.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;图中黄色背景的代表 cell 内只有一个连续面片的情况；其它则代表有多个面片的情况。&lt;/p&gt;
 &lt;p&gt;得到拓扑结构后，对每条包含 vertice 的边进行线性插值，找到 0 值的位置，即可作为 vertice 的坐标，由此完成 mesh 提取。&lt;/p&gt;
 </description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</guid><pubDate>Fri, 01 Nov 2019 16:06:00 +0806</pubDate></item></channel></rss>
