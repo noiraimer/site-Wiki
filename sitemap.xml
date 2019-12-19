@@ -98,14 +98,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/TensorFlow、Keras、CUDA、CuDNN 之间的版本要求/</loc>
+        <loc>https://wiki.imalan.cn/archives/VS Code 中配置 Anaconda/</loc>
         <lastmod>2019-02-21</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/VS Code 中配置 Anaconda/</loc>
+        <loc>https://wiki.imalan.cn/archives/TensorFlow、Keras、CUDA、CuDNN 之间的版本要求/</loc>
         <lastmod>2019-02-21</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -126,14 +126,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/C++ 保证某个 Class 在全程序仅有一个实例/</loc>
+        <loc>https://wiki.imalan.cn/archives/自定义 Hexo 文章链接形式/</loc>
         <lastmod>2018-07-30</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/自定义 Hexo 文章链接形式/</loc>
+        <loc>https://wiki.imalan.cn/archives/C++ 保证某个 Class 在全程序仅有一个实例/</loc>
         <lastmod>2018-07-30</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -161,13 +161,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/Ubuntu 更改下载、视频等默认文件夹存放位置/</loc>
-        <lastmod>2018-05-04</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
         <loc>https://wiki.imalan.cn/archives/Windows 上安装 Hexo/</loc>
         <lastmod>2018-05-04</lastmod>
         <changefreq>always</changefreq>
@@ -175,8 +168,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/使 Ubuntu 开机自动挂载硬盘分区/</loc>
-        <lastmod>2018-05-03</lastmod>
+        <loc>https://wiki.imalan.cn/archives/Ubuntu 更改下载、视频等默认文件夹存放位置/</loc>
+        <lastmod>2018-05-04</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
@@ -189,8 +182,22 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
+        <loc>https://wiki.imalan.cn/archives/使 Ubuntu 开机自动挂载硬盘分区/</loc>
+        <lastmod>2018-05-03</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
         <loc>https://wiki.imalan.cn/archives/解决 Ubuntu 上网易云音乐 1.1.0 无法以普通权限运行的问题/</loc>
         <lastmod>2018-04-30</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/解决WPS for Linux 字体不全的问题/</loc>
+        <lastmod>2018-04-29</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
@@ -210,20 +217,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/解决WPS for Linux 字体不全的问题/</loc>
-        <lastmod>2018-04-29</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://wiki.imalan.cn/archives/安装 NVIDIA 驱动与配置 CUDA 开发环境/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
         <loc>https://wiki.imalan.cn/archives/Ubuntu 更改文件默认打开方式/</loc>
         <lastmod>2018-04-28</lastmod>
         <changefreq>always</changefreq>
@@ -231,35 +224,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/Ubuntu 装机配置/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://wiki.imalan.cn/archives/编译安装 ITK 与 RTK 开发库/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://wiki.imalan.cn/archives/Windows 装机配置/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
         <loc>https://wiki.imalan.cn/archives/使 Ubuntu 开机自动以 root 权限执行命令/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://wiki.imalan.cn/archives/Ubuntu 设置环境变量/</loc>
         <lastmod>2018-04-28</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -274,6 +239,41 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
         <loc>https://wiki.imalan.cn/archives/部署 Typecho/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/Ubuntu 设置环境变量/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/编译安装 ITK 与 RTK 开发库/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/Ubuntu 装机配置/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/安装 NVIDIA 驱动与配置 CUDA 开发环境/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/Windows 装机配置/</loc>
         <lastmod>2018-04-28</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
