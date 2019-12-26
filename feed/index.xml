@@ -1,56 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${static_prefix}android-chrome-512x512.png</url><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Thu, 26 Dec 2019 11:23:02 +0806</lastBuildDate><pubDate>Thu, 26 Dec 2019 11:23:02 +0806</pubDate><item><title>Git 代理配置方案</title><link>https://wiki.imalan.cn/archives/Git 代理配置方案/</link><description>&lt;p&gt;国内连 Github 是个很头疼的问题。浏览器还好，只要电脑挂了代理一般就没什么问题；主要是终端使用有些麻烦。折腾出来的最佳实践如下。&lt;/p&gt;
-&lt;p&gt;部分来自：&lt;a href="https://molunerfinn.com/git-ssh2https/"&gt;https://molunerfinn.com/git-ssh2https/&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;设置代理&lt;/h2&gt;
-&lt;p&gt;首先，代码仓库尽量使用 HTTPS 协议，也就是以 &lt;code&gt;https://github.com&lt;/code&gt; 开头的链接，而不是以 &lt;code&gt;git@github.com&lt;/code&gt; 开头的 SSH 链接，这样就可以通过 &lt;code&gt;git config&lt;/code&gt; 方便地设置代理：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git config --global http.proxy socks5://127.0.0.1:1080
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;网上广泛流传的针对 &lt;code&gt;https.proxy&lt;/code&gt; 也设置一遍代理是不必要的。&lt;/p&gt;
-&lt;p&gt;注意，这样设置后 push 时可能会提示&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ServicePointManager 不支持具有 socks5 方案的代理&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;但是仍然能 push 成功。最好的解决方法是在本地使用 HTTP/HTTPS 代理，例如：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git config --global http.proxy http://127.0.0.1:1081
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;具体的端口视你电脑本地的代理软件（Shadowsocks、Clash等）而异。&lt;/p&gt;
-&lt;h2&gt;设置仓库&lt;/h2&gt;
-&lt;p&gt;以上设置只针对使用 HTTPS 协议的仓库有效，如果已经使用了 SSH 协议，则可以如此修改：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git remote set-url origin https://xxxxx &lt;span class="c1"&gt;#your https repo url&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;查看是否修改成功：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git remote -v
-origin  https://github.com/xxx/xxx.github.io.git &lt;span class="o"&gt;(&lt;/span&gt;fetch&lt;span class="o"&gt;)&lt;/span&gt;
-origin  https://github.com/xxx/xxx.github.io.git &lt;span class="o"&gt;(&lt;/span&gt;push&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;设置 Git&lt;/h2&gt;
-&lt;p&gt;使用 HTTPS 协议后 push 时需要密码，我们可以将密码保存起来，免得重复输入。编辑或新建文件：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;vi ~/.git-credentials
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;添加一行：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;https://用户名:密码@github.com&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;保存退出，然后执行：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git config --global credential.helper store
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;即可。&lt;/p&gt;
-&lt;h3&gt;提升安全性&lt;/h3&gt;
-&lt;p&gt;以上可见用户名与密码是明文存储在配置文件中的，如果你觉得不够安全可以继续下面的步骤。&lt;/p&gt;
-&lt;p&gt;对于 Mac 而言，可以将 git 默认的 &lt;code&gt;credential.helper&lt;/code&gt; 指定成 &lt;code&gt;osxkeychain&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git config --global credential.helper osxkeychain&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;然后可以通过&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git config credential.helper
-osxkeychain&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;来查看是否指定成功了。之后用户名密码将会保存在系统自带的 &lt;code&gt;keychain access&lt;/code&gt; 里，也就是通过 macOS 的钥匙链管理密码。&lt;/p&gt;
-&lt;h3&gt;Windows&lt;/h3&gt;
-&lt;p&gt;使用微软开发的&lt;a href="https://github.com/Microsoft/Git-Credential-Manager-for-Windows"&gt;Git-Credential-Manager-for-Windows&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;最新版下载地址：&lt;a href="https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/latest"&gt;https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/latest&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;安装之后，在控制台里输入：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git config --global credential.helper manager&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;之后还是一样的，某个项目里输入用户名密码之后，以后就再也不用输入了。你可以在&lt;code&gt;管理网络密码&lt;/code&gt;里找到你的用户密码——其实不是密码，而是 token 了，因为 &lt;code&gt;Git-Credential-Manager-for-Windows&lt;/code&gt; 它会自动调用 Github 的 API 生成 &lt;code&gt;Personal access tokens&lt;/code&gt;，你可以在你的 Github 的 `Personal settings 找到它。&lt;/p&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Git 代理配置方案/</guid><pubDate>Sun, 09 Jun 2019 00:00:00 +0806</pubDate></item><item><title>使用 GitHub webhook 自动部署</title><link>https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</link><description>&lt;p&gt;我的三个静态站点：&lt;a href="https://www.imalan.cn"&gt;三無計劃&lt;/a&gt;，&lt;a href="https://wiki.imalan.cn"&gt;無知識&lt;/a&gt;，&lt;a href="https://lab.imalan.cn"&gt;無項目&lt;/a&gt;均使用 Travis-CI 自动构建。在此之前，三个站点都托管在 GitHub Pages 或者 Coding Pages 上，但前者在大陆速度缓慢，后者时常抽风，总体表现都不如我自己的服务器，因此决定将站点放在自己这里。&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${static_prefix}android-chrome-512x512.png</url><title>无知识 | 三无计划</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Thu, 26 Dec 2019 11:29:46 +0806</lastBuildDate><pubDate>Thu, 26 Dec 2019 11:29:46 +0806</pubDate><item><title>使用 GitHub webhook 自动部署</title><link>https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</link><description>&lt;p&gt;我的三个静态站点：&lt;a href="https://www.imalan.cn"&gt;三無計劃&lt;/a&gt;，&lt;a href="https://wiki.imalan.cn"&gt;無知識&lt;/a&gt;，&lt;a href="https://lab.imalan.cn"&gt;無項目&lt;/a&gt;均使用 Travis-CI 自动构建。在此之前，三个站点都托管在 GitHub Pages 或者 Coding Pages 上，但前者在大陆速度缓慢，后者时常抽风，总体表现都不如我自己的服务器，因此决定将站点放在自己这里。&lt;/p&gt;
 &lt;p&gt;GitHub webhook 可在仓库发生某些事件（例如 push）时向某指定 URL 发起 POST 请求，请求 body 就是详细的 push 事件内容，因此可以在服务器上根据请求部署站点，比如直接从 Github 拉取最新源码然后构建，或者由 CI 服务构建好之后拉取最新的 build 到服务器上。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;首先保存以下 PHP 到服务器上可从外部访问的地方，并在 Github 对应仓库设置中添加一个 hook，URL 就填该 PHP 的网址，例如 &lt;code&gt;https://api.imalan.cn/somepath/hook.php&lt;/code&gt;。&lt;/p&gt;
@@ -466,4 +415,11 @@ Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/cod
 &lt;p&gt;&lt;figure class="pswp-item" style="flex: 95.5592105263158" data-width="581" data-height="304"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/cf8912ad3cd96f93f718ee2aa3864674.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;图中黄色背景的代表 cell 内只有一个连续面片的情况；其它则代表有多个面片的情况。&lt;/p&gt;
 &lt;p&gt;得到拓扑结构后，对每条包含 vertice 的边进行线性插值，找到 0 值的位置，即可作为 vertice 的坐标，由此完成 mesh 提取。&lt;/p&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</guid><pubDate>Fri, 01 Nov 2019 16:06:00 +0806</pubDate></item></channel></rss>
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</guid><pubDate>Fri, 01 Nov 2019 16:06:00 +0806</pubDate></item><item><title>命令行查看 SSL 证书过期时间</title><link>https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</link><description>&lt;p&gt;命令行：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;openssl x509 -in server.crt -noout -dates&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;notBefore=Dec 24 08:04:53 2019 GMT
+notAfter=Mar 23 08:04:53 2020 GMT&lt;/code&gt;&lt;/pre&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</guid><pubDate>Thu, 26 Dec 2019 19:19:00 +0806</pubDate></item></channel></rss>

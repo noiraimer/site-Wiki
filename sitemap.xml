@@ -7,6 +7,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 
     <url>
+        <loc>https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</loc>
+        <lastmod>2019-12-26</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
         <loc>https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</loc>
         <lastmod>2019-11-01</lastmod>
         <changefreq>always</changefreq>
