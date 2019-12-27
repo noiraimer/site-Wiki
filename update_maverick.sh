@@ -1,4 +1,4 @@
-::Update Maverick and Commit Changes
+#！/bin/sh
 
 git submodule update --init --recursive
 cd Maverick
@@ -8,5 +8,3 @@ cd ..
 git add .
 git commit -m "Update Maverick"
 git push
-
-pause
