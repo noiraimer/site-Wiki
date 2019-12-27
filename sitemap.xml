@@ -133,14 +133,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/自定义 Hexo 文章链接形式/</loc>
+        <loc>https://wiki.imalan.cn/archives/C++ 保证某个 Class 在全程序仅有一个实例/</loc>
         <lastmod>2018-07-30</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/C++ 保证某个 Class 在全程序仅有一个实例/</loc>
+        <loc>https://wiki.imalan.cn/archives/自定义 Hexo 文章链接形式/</loc>
         <lastmod>2018-07-30</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -168,14 +168,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/Windows 上安装 Hexo/</loc>
+        <loc>https://wiki.imalan.cn/archives/Ubuntu 更改下载、视频等默认文件夹存放位置/</loc>
         <lastmod>2018-05-04</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/Ubuntu 更改下载、视频等默认文件夹存放位置/</loc>
+        <loc>https://wiki.imalan.cn/archives/Windows 上安装 Hexo/</loc>
         <lastmod>2018-05-04</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -224,6 +224,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
+        <loc>https://wiki.imalan.cn/archives/编译安装 ITK 与 RTK 开发库/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/安装 NVIDIA 驱动与配置 CUDA 开发环境/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
         <loc>https://wiki.imalan.cn/archives/Ubuntu 更改文件默认打开方式/</loc>
         <lastmod>2018-04-28</lastmod>
         <changefreq>always</changefreq>
@@ -238,28 +252,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/Hexo 环境部署与发布/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://wiki.imalan.cn/archives/部署 Typecho/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
         <loc>https://wiki.imalan.cn/archives/Ubuntu 设置环境变量/</loc>
-        <lastmod>2018-04-28</lastmod>
-        <changefreq>always</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>https://wiki.imalan.cn/archives/编译安装 ITK 与 RTK 开发库/</loc>
         <lastmod>2018-04-28</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
@@ -273,14 +266,21 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/安装 NVIDIA 驱动与配置 CUDA 开发环境/</loc>
+        <loc>https://wiki.imalan.cn/archives/Windows 装机配置/</loc>
         <lastmod>2018-04-28</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
     </url>
 
     <url>
-        <loc>https://wiki.imalan.cn/archives/Windows 装机配置/</loc>
+        <loc>https://wiki.imalan.cn/archives/部署 Typecho/</loc>
+        <lastmod>2018-04-28</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
+        <loc>https://wiki.imalan.cn/archives/Hexo 环境部署与发布/</loc>
         <lastmod>2018-04-28</lastmod>
         <changefreq>always</changefreq>
         <priority>0.5</priority>
