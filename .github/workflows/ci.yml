@@ -40,6 +40,8 @@ jobs:
         # 保存图片缓存
         cd ..
         cp ./Maverick/cached_imgs/sizeinfo.json ./cache
+        date > ./cache/info
+        md5sum ./cache/sizeinfo.json >> ./cache/info
 
     - name: Deploy to GitHub Pages
       uses: docker://peaceiris/gh-pages:v2
