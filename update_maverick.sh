@@ -1,5 +1,9 @@
 #！/bin/sh
 
+setss
+
+git pull
+
 git submodule update --init --recursive
 cd Maverick
 git pull origin master --rebase
