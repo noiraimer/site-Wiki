@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>https://wiki.imalan.cn/</id><title>无知识 | 三无计划</title><updated>2019-12-28T09:06:43.465221+08:06</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email></author><link href="https://wiki.imalan.cn/" rel="alternate"/><generator uri="http://lkiesow.github.io/python-feedgen" version="0.8.0">python-feedgen</generator><logo>${static_prefix}android-chrome-512x512.png</logo><subtitle>熊猫小A的Wiki站点</subtitle><entry><id>https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</id><title>使用 GitHub webhook 自动部署</title><updated>2019-12-28T09:06:43.465512+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;我的三个静态站点：&lt;a href="https://www.imalan.cn"&gt;三無計劃&lt;/a&gt;，&lt;a href="https://wiki.imalan.cn"&gt;無知識&lt;/a&gt;，&lt;a href="https://lab.imalan.cn"&gt;無項目&lt;/a&gt;均使用 Travis-CI 自动构建。在此之前，三个站点都托管在 GitHub Pages 或者 Coding Pages 上，但前者在大陆速度缓慢，后者时常抽风，总体表现都不如我自己的服务器，因此决定将站点放在自己这里。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><id>https://wiki.imalan.cn/</id><title>无知识 | 三无计划</title><updated>2019-12-28T09:07:02.902246+08:06</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email></author><link href="https://wiki.imalan.cn/" rel="alternate"/><generator uri="http://lkiesow.github.io/python-feedgen" version="0.8.0">python-feedgen</generator><logo>${static_prefix}android-chrome-512x512.png</logo><subtitle>熊猫小A的Wiki站点</subtitle><entry><id>https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</id><title>使用 GitHub webhook 自动部署</title><updated>2019-12-28T09:07:02.902566+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;我的三个静态站点：&lt;a href="https://www.imalan.cn"&gt;三無計劃&lt;/a&gt;，&lt;a href="https://wiki.imalan.cn"&gt;無知識&lt;/a&gt;，&lt;a href="https://lab.imalan.cn"&gt;無項目&lt;/a&gt;均使用 Travis-CI 自动构建。在此之前，三个站点都托管在 GitHub Pages 或者 Coding Pages 上，但前者在大陆速度缓慢，后者时常抽风，总体表现都不如我自己的服务器，因此决定将站点放在自己这里。&lt;/p&gt;
 &lt;p&gt;GitHub webhook 可在仓库发生某些事件（例如 push）时向某指定 URL 发起 POST 请求，请求 body 就是详细的 push 事件内容，因此可以在服务器上根据请求部署站点，比如直接从 Github 拉取最新源码然后构建，或者由 CI 服务构建好之后拉取最新的 build 到服务器上。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;首先保存以下 PHP 到服务器上可从外部访问的地方，并在 Github 对应仓库设置中添加一个 hook，URL 就填该 PHP 的网址，例如 &lt;code&gt;https://api.imalan.cn/somepath/hook.php&lt;/code&gt;。&lt;/p&gt;
@@ -87,7 +87,7 @@
 &lt;p&gt;……也可以很复杂，不演示了。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;实际上，还有可能遇到权限问题，另开一篇说。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/" rel="alternate"/><published>2019-06-14T09:20:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</id><title>使用 PHP 执行 shell 脚本的权限问题</title><updated>2019-12-28T09:06:43.465491+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/" rel="alternate"/><published>2019-06-14T09:20:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</id><title>使用 PHP 执行 shell 脚本的权限问题</title><updated>2019-12-28T09:07:02.902548+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
     &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd somepath &amp;amp;&amp;amp; git pull --rebase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -98,7 +98,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;十有八九会的到不同的结果，例如在终端中是 &lt;code&gt;alan&lt;/code&gt;（我的登录账户），在浏览器中是 &lt;code&gt;www&lt;/code&gt;（Nginx 的账户）。因此在浏览器中时 PHP 是以 www 去执行 git pull 的，这就会有权限问题。&lt;/p&gt;
 &lt;p&gt;可以让 &lt;code&gt;www&lt;/code&gt; 账户表现得像 &lt;code&gt;alan&lt;/code&gt; 账户，但是非常不推荐。最好的办法就是在终端里切换到 www 用户再重新 git clone，让本地 repo 的所有权为 www，即可。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/" rel="alternate"/><published>2019-06-14T09:42:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/</id><title>SSH 秘钥登陆远程服务器</title><updated>2019-12-28T09:06:43.465470+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;首先在本机上生成密钥对：&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/" rel="alternate"/><published>2019-06-14T09:42:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/</id><title>SSH 秘钥登陆远程服务器</title><updated>2019-12-28T09:07:02.902530+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;首先在本机上生成密钥对：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh-keygen -t rsa
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;生成的本地秘钥位于：&lt;/p&gt;
@@ -131,7 +131,7 @@ PubkeyAuthentication yes  //将该项改为yes
 &lt;p&gt;即可通过 &lt;code&gt;ssh 服务器名&lt;/code&gt; 快速登陆远程服务器。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;从安全性上考虑，也更推荐本文这种基于密钥的鉴权方式，而不是使用密码。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/" rel="alternate"/><published>2019-06-14T17:51:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/</id><title>Ubuntu 18.04 Bionic 国内软件源镜像</title><updated>2019-12-28T09:06:43.465448+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;替换软件源方法：首先备份原来的软件源配置：&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/" rel="alternate"/><published>2019-06-14T17:51:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/</id><title>Ubuntu 18.04 Bionic 国内软件源镜像</title><updated>2019-12-28T09:07:02.902495+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;替换软件源方法：首先备份原来的软件源配置：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo mv /etc/apt/sources.list /etc/apt/sources.list.old
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;创建新的配置文件，内容为下文所述的源列表：&lt;/p&gt;
@@ -190,7 +190,7 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted
 deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
 deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
-</content><link href="https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/" rel="alternate"/><published>2019-07-05T15:19:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/编译与配置 Boost 库/</id><title>编译与配置 Boost 库</title><updated>2019-12-28T09:06:43.465427+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;Boost 是 C++ 的一个增强库，可以看做 std 的扩展。在 Windows 上编译安装很简单。&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/" rel="alternate"/><published>2019-07-05T15:19:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/编译与配置 Boost 库/</id><title>编译与配置 Boost 库</title><updated>2019-12-28T09:07:02.902476+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;Boost 是 C++ 的一个增强库，可以看做 std 的扩展。在 Windows 上编译安装很简单。&lt;/p&gt;
 &lt;p&gt;首先下载代码包：&lt;a href="https://www.boost.org/users/history/"&gt;https://www.boost.org/users/history/&lt;/a&gt; 并解压，使用 Visual Studio 提供的 x64 兼容命令提示符工具进入源码目录，运行目录下的 bootstrap.bat 脚本，目录下将出现 bjam.exe 与 b2.exe 等文件。之后即可使用 bjam 工具编译。&lt;/p&gt;
 &lt;p&gt;实际上 Boost 库的绝大多数组件都是 header-only 的，也就是无需进一步编译生成可执行文件，只需要引入头文件即可，但是以下几个组件除外：&lt;/p&gt;
 &lt;ul&gt;
@@ -251,7 +251,7 @@ See subject.&lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code&gt;Will Success Spoil Rock Hunter?&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;以上。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/编译与配置 Boost 库/" rel="alternate"/><published>2019-07-06T15:01:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/Windows 实现有线 + Wifi 同时上网（分管内外网）/</id><title>Windows 实现有线 + Wifi 同时上网（分管内外网）</title><updated>2019-12-28T09:06:43.465405+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;现在的笔记本大多是双网卡，一个有线一个无线。若同时连上有线与 Wifi，Windows 优先使用有线连接。有时我们需要两者皆能联网，例如我的场景：Wifi 连接实验室内网，有线连接校园网，方便挂 PT。那么可按本文操作如下。&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/编译与配置 Boost 库/" rel="alternate"/><published>2019-07-06T15:01:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/Windows 实现有线 + Wifi 同时上网（分管内外网）/</id><title>Windows 实现有线 + Wifi 同时上网（分管内外网）</title><updated>2019-12-28T09:07:02.902440+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;现在的笔记本大多是双网卡，一个有线一个无线。若同时连上有线与 Wifi，Windows 优先使用有线连接。有时我们需要两者皆能联网，例如我的场景：Wifi 连接实验室内网，有线连接校园网，方便挂 PT。那么可按本文操作如下。&lt;/p&gt;
 &lt;p&gt;首先连接有线与无线，在 CMD 管理员模式中输出当前路由表：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;route print&lt;/code&gt;&lt;/pre&gt;
@@ -283,7 +283,7 @@ route add 192.168.0.0 mask 255.255.0.0 192.168.2.1
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;其中第一行是请求管理员权限。&lt;/p&gt;
 &lt;p&gt;网络盛传的把以上路由都添加为永久路由的方法不推荐，因为如此的话重启后也不会变回正常状态，可能影响电脑在别处联网。最好保存为批处理，在合适的时候运行一下即可，若有不对重启即可恢复原本状态。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/Windows 实现有线 + Wifi 同时上网（分管内外网）/" rel="alternate"/><published>2019-08-26T09:14:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/使用 Grid-Stride Loop 复用 CUDA 线程/</id><title>使用 Grid-Stride Loop 复用 CUDA 线程</title><updated>2019-12-28T09:06:43.465382+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;在阅读 CUDA 文档的过程中看到这一篇博文：&lt;a href="https://devblogs.nvidia.com/cuda-pro-tip-write-flexible-kernels-grid-stride-loops/"&gt;CUDA Pro Tip: Write Flexible Kernels with Grid-Stride Loops&lt;/a&gt;，觉得是很不错的思想（技巧），因此记录下来，并且附上一些验证数据。&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/Windows 实现有线 + Wifi 同时上网（分管内外网）/" rel="alternate"/><published>2019-08-26T09:14:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/使用 Grid-Stride Loop 复用 CUDA 线程/</id><title>使用 Grid-Stride Loop 复用 CUDA 线程</title><updated>2019-12-28T09:07:02.902402+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;在阅读 CUDA 文档的过程中看到这一篇博文：&lt;a href="https://devblogs.nvidia.com/cuda-pro-tip-write-flexible-kernels-grid-stride-loops/"&gt;CUDA Pro Tip: Write Flexible Kernels with Grid-Stride Loops&lt;/a&gt;，觉得是很不错的思想（技巧），因此记录下来，并且附上一些验证数据。&lt;/p&gt;
 &lt;h3&gt;In theory&lt;/h3&gt;
 &lt;p&gt;问题起源：一般使用 CUDA 并行计算时，总使用一个线程对应一块数据，例如计算两向量之和：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// device code to compute c = a + b;&lt;/span&gt;
@@ -388,7 +388,7 @@ Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/cod
 &lt;p&gt;可见当 ARRAYSIZE 较大时，两种方法性能有可观的差距。当然，这个测试只是理论上的，实际应用中不可能只用 10 个 Block 来计算。&lt;/p&gt;
 &lt;p&gt;另外，若将显存大小纳入讨论则情况会稍有不同。向量相加这个例子中需要为相加的两个向量以及存储结果的一个向量在 GPU 上分配显存，有时会遇到这样的情况：线程还没用完，显存先用完了。这种情况与算法相关，并不是所有的程序都需要这么巨大的显存量，但需要巨大线程数的场景比比皆是。&lt;/p&gt;
 &lt;p&gt;另外，如何将其扩展到高维 Tensor 还有待思考。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/使用 Grid-Stride Loop 复用 CUDA 线程/" rel="alternate"/><published>2019-09-29T00:00:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/WSL 2 中配置终端走主机代理/</id><title>WSL 2 中配置终端走主机代理</title><updated>2019-12-28T09:06:43.465359+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;微软在 WSL 2 中更改了 Linux 子系统与 Windows 主机的通信方式，以往通过 localhost 即可互相访问，现在则不行，具体内容见 &lt;a href="https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-ux-changes"&gt;WSL 1 与 WSL 2 的用户体验差异&lt;/a&gt;。&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/使用 Grid-Stride Loop 复用 CUDA 线程/" rel="alternate"/><published>2019-09-29T00:00:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/WSL 2 中配置终端走主机代理/</id><title>WSL 2 中配置终端走主机代理</title><updated>2019-12-28T09:07:02.902365+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;微软在 WSL 2 中更改了 Linux 子系统与 Windows 主机的通信方式，以往通过 localhost 即可互相访问，现在则不行，具体内容见 &lt;a href="https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-ux-changes"&gt;WSL 1 与 WSL 2 的用户体验差异&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;之前可以在 Windows 主机内通过 Clash 或者其它软件开启一个本地代理，并允许通过 LAN 连接，来实现 WSL 终端魔法上网，经由 WSL 2 的更改后就需要加上获取 Windows 主机 IP 这一步。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# 获取主机 IP&lt;/span&gt;
 &lt;span class="c1"&gt;# 主机 IP 保存在 /etc/resolv.conf 中&lt;/span&gt;
@@ -404,7 +404,7 @@ Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/cod
 &lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;setss&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;export https_proxy=&amp;quot;http://${hostip}:8888&amp;quot;;export http_proxy=&amp;quot;http://${hostip}:8888&amp;quot;;export all_proxy=&amp;quot;socks5://${hostip}:8889&amp;quot;;&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;之后就可以在 WSL 2 中使用 &lt;code&gt;setss&lt;/code&gt; 设置终端代理。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/WSL 2 中配置终端走主机代理/" rel="alternate"/><published>2019-10-24T16:30:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</id><title>Marching Cubes 算法提取等值面</title><updated>2019-12-28T09:06:43.465332+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;不失一般性，以抽取 0 等值面举例，假设面一侧为正值，另一侧为负值。则 Marching Cubes 算法总体上通过两个步骤建立这个等值面的 mesh 模型：&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/WSL 2 中配置终端走主机代理/" rel="alternate"/><published>2019-10-24T16:30:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</id><title>Marching Cubes 算法提取等值面</title><updated>2019-12-28T09:07:02.902343+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;不失一般性，以抽取 0 等值面举例，假设面一侧为正值，另一侧为负值。则 Marching Cubes 算法总体上通过两个步骤建立这个等值面的 mesh 模型：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;估计每个 cell 内的三角面片数量与连接方式（拓扑结构）&lt;/li&gt;
 &lt;li&gt;计算确定个面片的每个顶点的具体位置&lt;/li&gt;
@@ -415,7 +415,7 @@ Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/cod
 &lt;p&gt;&lt;figure class="pswp-item" style="flex: 95.5592105263158" data-width="581" data-height="304"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/cf8912ad3cd96f93f718ee2aa3864674.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;图中黄色背景的代表 cell 内只有一个连续面片的情况；其它则代表有多个面片的情况。&lt;/p&gt;
 &lt;p&gt;得到拓扑结构后，对每条包含 vertice 的边进行线性插值，找到 0 值的位置，即可作为 vertice 的坐标，由此完成 mesh 提取。&lt;/p&gt;
-</content><link href="https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/" rel="alternate"/><published>2019-11-01T16:06:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</id><title>命令行查看 SSL 证书过期时间</title><updated>2019-12-28T09:06:43.465280+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;命令行：&lt;/p&gt;
+</content><link href="https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/" rel="alternate"/><published>2019-11-01T16:06:00+08:06</published></entry><entry><id>https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</id><title>命令行查看 SSL 证书过期时间</title><updated>2019-12-28T09:07:02.902299+00:00</updated><author><name>熊猫小A</name><email>hi@imalan.cn</email><uri>https://www.imalan.cn</uri></author><content>&lt;p&gt;命令行：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;openssl x509 -in server.crt -noout -dates&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;输出：&lt;/p&gt;
