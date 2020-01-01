@@ -122,11 +122,6 @@ head_addon = r'''
 <meta name="baidu-site-verification" content="Or6aUYr0De" />
 '''
 
-footer_addon = r'''
-<p class="copyright"><a no-style href="http://www.miitbeian.gov.cn/" target="_blank">京 ICP 备 18000133 号</a>
-<a no-style href="https://www.upyun.com" target="_blank">又拍云</a></p>
-'''
-
 body_addon = r'''
 <script>
 (function(){
