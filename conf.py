@@ -20,7 +20,7 @@ enable_jsdelivr = {
 category_by_folder = True
 
 # 站点设置
-site_name = "无知识 | 三无计划"
+site_name = "Panda Wiki"
 site_logo = "${static_prefix}android-chrome-512x512.png"
 site_build_date = "2017-06-29T12:00+08:00"
 author = "熊猫小A"
