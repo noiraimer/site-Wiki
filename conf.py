@@ -6,7 +6,11 @@
 site_prefix = "https://wiki.imalan.cn/"
 source_dir = "../src/"
 build_dir = "../dist/"
-template = "Galileo"
+template = {
+    "name": "Kepler",
+    "type": "local",
+    "path": "../Kepler"
+}
 index_page_size = 10
 archives_page_size = 20
 enable_jsdelivr = {
@@ -27,12 +31,17 @@ key_words = ['Maverick', '熊猫小A', 'Galileo', 'wiki']
 language = 'zh-CN'
 external_links = [
     {
-        "name": "AlanDecode/Maverick",
+        "name": "Maverick",
         "url": "https://github.com/AlanDecode/Maverick",
         "brief": "🏄‍ Go My Own Way."
     },
     {
-        "name": "三無計劃 | Triple NULL",
+        "name": "Kepler",
+        "url": "https://github.com/AlanDecode/Maverick-Theme-Kepler",
+        "brief": "A wiki theme for Maverick"
+    },
+    {
+        "name": "三無計劃",
         "url": "https://www.imalan.cn",
         "brief": "三是虚指。至于是哪三无，我唔知。"
     },
@@ -54,14 +63,24 @@ external_links = [
 ]
 nav = [
     {
-        "name": "主页",
+        "name": "HOME",
         "url": "${site_prefix}",
         "target": "_self"
     },
     {
-        "name": "归档",
+        "name": "ARCHIVES",
         "url": "${site_prefix}archives/",
         "target": "_self"
+    },
+    {
+        "name": "ABOUT",
+        "url": "${site_prefix}about/",
+        "target": "_self"
+    },
+    {
+        "name": "GITHUB",
+        "url": "https://github.com/AlanDecode",
+        "target": "_blank"
     }
 ]
 
