@@ -38,17 +38,17 @@ valine = {
 
 external_links = [
     {
-        "name": "Triple Null",
+        "name": "TRIPLE NULL",
         "url": "https://www.imalan.cn",
         "brief": "三是虚指。至于是哪三无，我唔知。"
     },
     {
-        "name": "Blog",
+        "name": "BLOG",
         "url": "https://blog.imalan.cn",
         "brief": "熊猫小A的博客。隶属于「三无计划」。"
     },
     {
-        "name": "Lab",
+        "name": "LAB",
         "url": "https://lab.imalan.cn",
         "brief": "熊猫小A的实验室。隶属于「三无计划」。"
     },
@@ -58,7 +58,7 @@ external_links = [
         "brief": "My GitHub"
     },
     {
-        "name": "Channel",
+        "name": "CHANNEL",
         "url": "https://t.me/triple_null",
         "brief": "熊猫小A的广播。隶属于「三无计划」。"
     }
