@@ -6,11 +6,7 @@
 site_prefix = "https://wiki.imalan.cn/"
 source_dir = "../src/"
 build_dir = "../dist/"
-template = {
-    "name": "Kepler",
-    "type": "local",
-    "path": "../Kepler"
-}
+template = "Kepler"
 index_page_size = 10
 archives_page_size = 20
 enable_jsdelivr = {
