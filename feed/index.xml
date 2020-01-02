@@ -1,93 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${static_prefix}android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Thu, 02 Jan 2020 07:15:27 +0806</lastBuildDate><pubDate>Thu, 02 Jan 2020 07:15:27 +0806</pubDate><item><title>使用 GitHub webhook 自动部署</title><link>https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</link><description>&lt;p&gt;我的三个静态站点：&lt;a href="https://www.imalan.cn"&gt;三無計劃&lt;/a&gt;，&lt;a href="https://wiki.imalan.cn"&gt;無知識&lt;/a&gt;，&lt;a href="https://lab.imalan.cn"&gt;無項目&lt;/a&gt;均使用 Travis-CI 自动构建。在此之前，三个站点都托管在 GitHub Pages 或者 Coding Pages 上，但前者在大陆速度缓慢，后者时常抽风，总体表现都不如我自己的服务器，因此决定将站点放在自己这里。&lt;/p&gt;
-&lt;p&gt;GitHub webhook 可在仓库发生某些事件（例如 push）时向某指定 URL 发起 POST 请求，请求 body 就是详细的 push 事件内容，因此可以在服务器上根据请求部署站点，比如直接从 Github 拉取最新源码然后构建，或者由 CI 服务构建好之后拉取最新的 build 到服务器上。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;首先保存以下 PHP 到服务器上可从外部访问的地方，并在 Github 对应仓库设置中添加一个 hook，URL 就填该 PHP 的网址，例如 &lt;code&gt;https://api.imalan.cn/somepath/hook.php&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
-&lt;span class="sd"&gt;/**&lt;/span&gt;
-&lt;span class="sd"&gt; * GitHub Webhook 服务端处理&lt;/span&gt;
-&lt;span class="sd"&gt; * 根据 Repo 与 Branch 的 push 事件运行脚本&lt;/span&gt;
-&lt;span class="sd"&gt; * &lt;/span&gt;
-&lt;span class="sd"&gt; * @author 熊猫小A | AlanDecode&lt;/span&gt;
-&lt;span class="sd"&gt; * @link https://www.imalan.cn&lt;/span&gt;
-&lt;span class="sd"&gt; */&lt;/span&gt;
-
-&lt;span class="k"&gt;function&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;endpoints&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="c1"&gt;// check repository and branch&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;repository&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;full_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;repo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ref&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;refs/heads/&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;branch&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-
-        &lt;span class="c1"&gt;// excute&lt;/span&gt;
-        &lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;run&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
-            &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$endpoint&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;action&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;Exception&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;getMessage&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// data&lt;/span&gt;
-    &lt;span class="nv"&gt;$rawInput&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file_get_contents&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;php://input&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="nv"&gt;$data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;json_decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$rawInput&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// config&lt;/span&gt;
-    &lt;span class="nv"&gt;$config_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;__DIR__&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/config.json&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nb"&gt;file_exists&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config_path&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Exception&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Can&amp;#39;t find &amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;$config_path&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="nv"&gt;$config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;json_decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;file_get_contents&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config_path&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// verify&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="k"&gt;empty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;key&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nb"&gt;isset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$_SERVER&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;HTTP_X_HUB_SIGNATURE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;die&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;No signature presented.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-
-        &lt;span class="k"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$algo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$hash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;explode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;=&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$_SERVER&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;HTTP_X_HUB_SIGNATURE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-        &lt;span class="nv"&gt;$signature&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;hash_hmac&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$algo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$rawInput&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;key&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
-
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$signature&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="nv"&gt;$hash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;die&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Signature doesn&amp;#39;t match.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// excute&lt;/span&gt;
-    &lt;span class="nx"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;$config&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;Exception&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$e&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="na"&gt;getMessage&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;在同一目录下创建 config.json 文件，形如：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;quot;key&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;xxxxxxxx&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;quot;endpoints&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-        &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="nt"&gt;&amp;quot;repo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;AlanDecode/some-Repo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-            &lt;span class="nt"&gt;&amp;quot;branch&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;build&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-            &lt;span class="nt"&gt;&amp;quot;action&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Deploy site from latest build.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-            &lt;span class="nt"&gt;&amp;quot;run&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/path/to/your.sh&amp;quot;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;其中，&lt;code&gt;key&lt;/code&gt; 字段用于鉴权，自己设置一个，然后填写到 GitHub webhook 设置的 secret 字段那里。这是可选的，但建议设置。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;endpoints&lt;/code&gt; 中保存了所有要处理的东西。&lt;code&gt;repo&lt;/code&gt; 是仓库名，&lt;code&gt;branch&lt;/code&gt; 是分支名，&lt;code&gt;action&lt;/code&gt; 是备注，可以随意填，&lt;code&gt;run&lt;/code&gt; 填写要运行的脚本文件路径。&lt;/p&gt;
-&lt;p&gt;脚本可以很简单：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class="nb"&gt;cd&lt;/span&gt; /home/sites/wiki.imalan.cn &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; git pull --rebase
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;……也可以很复杂，不演示了。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;实际上，还有可能遇到权限问题，另开一篇说。&lt;/p&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</guid><pubDate>Fri, 14 Jun 2019 09:20:00 +0806</pubDate></item><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>${static_prefix}android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Thu, 02 Jan 2020 08:11:05 +0806</lastBuildDate><pubDate>Thu, 02 Jan 2020 08:11:05 +0806</pubDate><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
     &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd somepath &amp;amp;&amp;amp; git pull --rebase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -422,4 +334,78 @@ Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/cod
 
 &lt;pre&gt;&lt;code&gt;notBefore=Dec 24 08:04:53 2019 GMT
 notAfter=Mar 23 08:04:53 2020 GMT&lt;/code&gt;&lt;/pre&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</guid><pubDate>Thu, 26 Dec 2019 19:19:00 +0806</pubDate></item></channel></rss>
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</guid><pubDate>Thu, 26 Dec 2019 19:19:00 +0806</pubDate></item><item><title>Python 中的变量传递方式</title><link>https://wiki.imalan.cn/archives/variable-pass-paradim-in-python/</link><description>&lt;p&gt;之前一直没有仔细思考过这个问题，直到最近用到方才深入了解。其实并不复杂，和 C++ 如出一辙。&lt;/p&gt;
+&lt;h2&gt;Python 中的变量&lt;/h2&gt;
+&lt;p&gt;简而言之，Python 中的变量都是对&lt;strong&gt;实体的引用&lt;/strong&gt;，但并&lt;strong&gt;不是实体本身&lt;/strong&gt;；此外，Python 的函数传参仍然&lt;strong&gt;遵循按值传递&lt;/strong&gt;，结合这两点就能搞明白 Python 的传参行为。&lt;/p&gt;
+&lt;p&gt;先抛开具体的编程语言，如果有以下伪代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a=1
+a=2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;多数语言会把这两行解释为：声明一个变量 a，在内存里分配空间，这个空间&lt;strong&gt;就叫 a&lt;/strong&gt;，里面存 1；然后把这个空间里的值更新成 2。&lt;/p&gt;
+&lt;p&gt;但是 Python 中对变量（其实是对象）的处理有所不同。以上两行在 Python 中代表：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;创建一个对象（整数 1），放在内存里，再&lt;strong&gt;创建一个引用，这个引用叫做 a&lt;/strong&gt;，指向之前创建的对象&lt;/li&gt;
+&lt;li&gt;又创建一个对象（整数 2），放在内存里，把 a 指向这个新的对象&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;看到不同了吧？接下来讨论函数传参。&lt;/p&gt;
+&lt;h2&gt;Python 中的传参&lt;/h2&gt;
+&lt;p&gt;在 Python 中的函数传参是依照&lt;strong&gt;值传递&lt;/strong&gt;的；但由于 Python 中的变量都是引用，因此就有了以下这句有点绕的话：&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;Python passes references-to-objects by value (like Java), and everything in Python is an object.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;看以下代码段&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[1]
+[1, 2]
+[1, 2]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;调用 &lt;code&gt;func&lt;/code&gt; 并把 a 传入时，Python 在局部&lt;strong&gt;新建了一个局部的变量 a&lt;/strong&gt;，并把外部 a 的值赋值给了新的变量。由于 a 是引用，新的变量也是引用，都指向内存中的同一个列表对象，因此在函数内部对列表进行的操作也同样可以由外部的 a 观测到。&lt;/p&gt;
+&lt;p&gt;然而，要注意两个陷阱：对引用进行 &lt;strong&gt;re-assign&lt;/strong&gt;；以及对 &lt;strong&gt;immutable 对象&lt;/strong&gt;的处理。&lt;/p&gt;
+&lt;h2&gt;对引用 re-assign&lt;/h2&gt;
+&lt;p&gt;修改以上代码为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# 注意这里&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[1]
+['a']
+[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为什么函数内对 a 的修改不能被外部的 a 观测到？&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;a=['1']&lt;/code&gt; 这行代码并不是通过 a 修改 a 指向的 list，而是在内存中新建了一个列表对象 &lt;code&gt;['a']&lt;/code&gt;，并将函数内部的 a 指向了这个新的对象，并且此后的操作都针对这个新的列表对象；然而由于函数内部的 a 与外部的 a 是两个不同的变量，因此外部的 a 仍然指向之前的 list。这种操作称为 &lt;code&gt;re-assign&lt;/code&gt;，需要与 &lt;code&gt;append&lt;/code&gt; 这种针对对象本身的方法区别开。&lt;/p&gt;
+&lt;h2&gt;immutable 对象的处理&lt;/h2&gt;
+&lt;p&gt;如果不使用列表，而使用字符串：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;changed&amp;#39;&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;original&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;结果：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;original
+changed
+original&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果理解了前文的要点，那么针对 immutable 对象的处理并不难懂。由于 str 对象是 immutable 的（不可变对象），因此函数内部不能通过 a 修改指向的字符串，&lt;code&gt;a='changed'&lt;/code&gt; 这行代码实际是在进行 re-assign，也就是新建了一个字符串对象 &lt;code&gt;'changed'&lt;/code&gt;，使函数内部的 a 指向这个新的对象。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;总而言之记住三点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Python 中的变量是对象的引用，而不是对象本身&lt;/li&gt;
+&lt;li&gt;Python 按值传参&lt;/li&gt;
+&lt;li&gt;警惕对引用进行 re-assign 与通过引用修改对象的区别&lt;/li&gt;
+&lt;/ol&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/variable-pass-paradim-in-python/</guid><pubDate>Thu, 02 Jan 2020 15:20:00 +0806</pubDate></item></channel></rss>

@@ -12,6 +12,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+    <loc>https://wiki.imalan.cn/archives/variable-pass-paradim-in-python/</loc>
+    <lastmod>2020-01-02</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
     <loc>https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</loc>
     <lastmod>2019-12-26</lastmod>
     <changefreq>always</changefreq>
