@@ -119,6 +119,11 @@ head_addon = r'''
 <meta name="baidu-site-verification" content="Or6aUYr0De" />
 '''
 
+footer_addon = r'''
+<a no-style href="http://bian.miit.gov.cn" target="_blank">京ICP备18000133号-1</a> | 
+<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
+'''
+
 body_addon = r'''
 <script>
 (function(){
