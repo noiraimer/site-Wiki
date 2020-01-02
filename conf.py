@@ -16,7 +16,7 @@ enable_jsdelivr = {
 category_by_folder = True
 
 # 站点设置
-site_name = "Panda Wiki"
+site_name = "無知識 | 三無計劃"
 site_logo = "${static_prefix}android-chrome-512x512.png"
 site_build_date = "2017-06-29T12:00+08:00"
 author = "熊猫小A"
@@ -27,32 +27,27 @@ key_words = ['Maverick', '熊猫小A', 'Galileo', 'wiki']
 language = 'zh-CN'
 external_links = [
     {
-        "name": "Maverick",
-        "url": "https://github.com/AlanDecode/Maverick",
-        "brief": "🏄‍ Go My Own Way."
-    },
-    {
-        "name": "Kepler",
-        "url": "https://github.com/AlanDecode/Maverick-Theme-Kepler",
-        "brief": "A wiki theme for Maverick"
-    },
-    {
-        "name": "三無計劃",
+        "name": "Triple Null",
         "url": "https://www.imalan.cn",
         "brief": "三是虚指。至于是哪三无，我唔知。"
     },
     {
-        "name": "無文字",
+        "name": "Blog",
         "url": "https://blog.imalan.cn",
         "brief": "熊猫小A的博客。隶属于「三无计划」。"
     },
     {
-        "name": "無項目",
+        "name": "Lab",
         "url": "https://lab.imalan.cn",
         "brief": "熊猫小A的实验室。隶属于「三无计划」。"
     },
     {
-        "name": "無消息",
+        "name": "GITHUB",
+        "url": "https://github.com/AlanDecode",
+        "brief": "My GitHub"
+    },
+    {
+        "name": "Channel",
         "url": "https://t.me/triple_null",
         "brief": "熊猫小A的广播。隶属于「三无计划」。"
     }
@@ -72,11 +67,6 @@ nav = [
         "name": "ABOUT",
         "url": "${site_prefix}about/",
         "target": "_self"
-    },
-    {
-        "name": "GITHUB",
-        "url": "https://github.com/AlanDecode",
-        "target": "_blank"
     }
 ]
 
