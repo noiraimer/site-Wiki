@@ -3,7 +3,7 @@
 """
 
 # For Maverick
-site_prefix = "https://wiki.imalan.cn/"
+site_prefix = "/"
 source_dir = "../src/"
 build_dir = "../dist/"
 template = "Kepler"
@@ -25,6 +25,17 @@ author_homepage = "https://www.imalan.cn"
 description = "熊猫小A的Wiki站点"
 key_words = ['Maverick', '熊猫小A', 'Galileo', 'wiki']
 language = 'zh-CN'
+
+valine = {
+    "enable": True,
+    "el": '#vcomments',
+    "appId": "2to78D9NRkvN8CTRtIneOcXL-gzGzoHsz",
+    "appKey": "ws5n5WDCDFVg5rhvqPceRiuA",
+    "visitor": True,
+    "recordIP": True,
+    "placeholder": "请不吝赐教"
+}
+
 external_links = [
     {
         "name": "Triple Null",
