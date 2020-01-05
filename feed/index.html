@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>/</link></image><language>zh-CN</language><lastBuildDate>Sun, 05 Jan 2020 07:57:13 +0806</lastBuildDate><pubDate>Sun, 05 Jan 2020 07:57:13 +0806</pubDate><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>/</link></image><language>zh-CN</language><lastBuildDate>Sun, 05 Jan 2020 12:28:11 +0806</lastBuildDate><pubDate>Sun, 05 Jan 2020 12:28:11 +0806</pubDate><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
     &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd somepath &amp;amp;&amp;amp; git pull --rebase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -292,11 +292,11 @@ Maximum number of threads per block:           1024
 Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
 Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;首先看不使用 Grid-Stride Loop（GS Loop） 的方法中 &lt;code&gt;GRIDSIZE&lt;/code&gt; 和时间相对 ARRAYSIZE 的变化：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.57788944723617" data-width="721" data-height="398"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/6d25c3996e10cb3f76025eb9d2c034a0.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img data-width="721" data-height="398" src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/6d25c3996e10cb3f76025eb9d2c034a0.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;固定 &lt;code&gt;GRIDSIZE=10&lt;/code&gt;，使用 Grid-Stride Loop 的方法：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 96.64879356568365" data-width="721" data-height="373"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/ac92e89173d7781e4c52292871b26a19.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img data-width="721" data-height="373" src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/ac92e89173d7781e4c52292871b26a19.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;直观对比两种方法用时：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 90.72681704260651" data-width="724" data-height="399"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/d1578d85e5da708987b7c8254075a43e.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img data-width="724" data-height="399" src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/d1578d85e5da708987b7c8254075a43e.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;可见当 ARRAYSIZE 较大时，两种方法性能有可观的差距。当然，这个测试只是理论上的，实际应用中不可能只用 10 个 Block 来计算。&lt;/p&gt;
 &lt;p&gt;另外，若将显存大小纳入讨论则情况会稍有不同。向量相加这个例子中需要为相加的两个向量以及存储结果的一个向量在 GPU 上分配显存，有时会遇到这样的情况：线程还没用完，显存先用完了。这种情况与算法相关，并不是所有的程序都需要这么巨大的显存量，但需要巨大线程数的场景比比皆是。&lt;/p&gt;
 &lt;p&gt;另外，如何将其扩展到高维 Tensor 还有待思考。&lt;/p&gt;
@@ -324,7 +324,7 @@ Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)&lt;/cod
 &lt;blockquote&gt;&lt;p&gt;这里的 cell 区别于 voxel。voxel 可认为是对三维场的采样与离散，采样点位于 voxel 中心，这些采样点作为顶点则构成了 cell。即 cell 是以采样点为顶点的三维网格。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;具体而言，对每一个 cell，首先确定这个 cell 内部面片的拓扑结构。即通过判断这个 cell 各顶点的符号来判断 cell 哪部分处于面内。当相邻两顶点符号改变时，表名这条边穿过了面，因此该边上必定有一个面片顶点（vertice）。这样，每个顶点都有两种情况：面内、面外，总共就有2^8 = 256 中情况，这些情况可归类为 15 中基本情况：&lt;/p&gt;
-&lt;p&gt;&lt;figure class="pswp-item" style="flex: 95.5592105263158" data-width="581" data-height="304"&gt;&lt;img src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/cf8912ad3cd96f93f718ee2aa3864674.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img data-width="581" data-height="304" src="https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/archives/assets/cf8912ad3cd96f93f718ee2aa3864674.png" alt="" /&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;图中黄色背景的代表 cell 内只有一个连续面片的情况；其它则代表有多个面片的情况。&lt;/p&gt;
 &lt;p&gt;得到拓扑结构后，对每条包含 vertice 的边进行线性插值，找到 0 值的位置，即可作为 vertice 的坐标，由此完成 mesh 提取。&lt;/p&gt;
 </description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">/archives/Marching Cubes 算法提取等值面/</guid><pubDate>Fri, 01 Nov 2019 16:06:00 +0806</pubDate></item><item><title>命令行查看 SSL 证书过期时间</title><link>/archives/命令行查看 SSL 证书过期时间/</link><description>&lt;p&gt;命令行：&lt;/p&gt;
