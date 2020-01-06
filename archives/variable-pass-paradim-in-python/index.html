@@ -19,7 +19,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/ef23bc604da136bb2ab0c341624b2268.json"
+            api: "https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/b0412dbf06e26d89c36faa79df9b0a8d.json"
         }
     </script>
     <script>
@@ -205,7 +205,7 @@ a=2</code></pre>
 ['a']
 [1]</code></pre>
 <p>为什么函数内对 a 的修改不能被外部的 a 观测到？</p>
-<p><code>a=['1']</code> 这行代码并不是通过 a 修改 a 指向的 list，而是在内存中新建了一个列表对象 <code>['a']</code>，并将函数内部的 a 指向了这个新的对象，并且此后的操作都针对这个新的列表对象；然而由于函数内部的 a 与外部的 a 是两个不同的变量，因此外部的 a 仍然指向之前的 list。这种操作称为 <code>re-assign</code>，需要与 <code>append</code> 这种针对对象本身的方法区别开。</p>
+<p><code>a=['a']</code> 这行代码并不是通过 a 修改 a 指向的 list，而是在内存中新建了一个列表对象 <code>['a']</code>，并将函数内部的 a 指向了这个新的对象，并且此后的操作都针对这个新的列表对象；然而由于函数内部的 a 与外部的 a 是两个不同的变量，因此外部的 a 仍然指向之前的 list。这种操作称为 <code>re-assign</code>，需要与 <code>append</code> 这种针对对象本身的方法区别开。</p>
 <h2>immutable 对象的处理</h2>
 <p>如果不使用列表，而使用字符串：</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>

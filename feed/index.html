@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>/</link></image><language>zh-CN</language><lastBuildDate>Sun, 05 Jan 2020 12:28:11 +0806</lastBuildDate><pubDate>Sun, 05 Jan 2020 12:28:11 +0806</pubDate><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>/</link></image><language>zh-CN</language><lastBuildDate>Mon, 06 Jan 2020 01:18:25 +0806</lastBuildDate><pubDate>Mon, 06 Jan 2020 01:18:25 +0806</pubDate><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
     &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd somepath &amp;amp;&amp;amp; git pull --rebase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -384,7 +384,7 @@ a=2&lt;/code&gt;&lt;/pre&gt;
 ['a']
 [1]&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;为什么函数内对 a 的修改不能被外部的 a 观测到？&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;a=['1']&lt;/code&gt; 这行代码并不是通过 a 修改 a 指向的 list，而是在内存中新建了一个列表对象 &lt;code&gt;['a']&lt;/code&gt;，并将函数内部的 a 指向了这个新的对象，并且此后的操作都针对这个新的列表对象；然而由于函数内部的 a 与外部的 a 是两个不同的变量，因此外部的 a 仍然指向之前的 list。这种操作称为 &lt;code&gt;re-assign&lt;/code&gt;，需要与 &lt;code&gt;append&lt;/code&gt; 这种针对对象本身的方法区别开。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;a=['a']&lt;/code&gt; 这行代码并不是通过 a 修改 a 指向的 list，而是在内存中新建了一个列表对象 &lt;code&gt;['a']&lt;/code&gt;，并将函数内部的 a 指向了这个新的对象，并且此后的操作都针对这个新的列表对象；然而由于函数内部的 a 与外部的 a 是两个不同的变量，因此外部的 a 仍然指向之前的 list。这种操作称为 &lt;code&gt;re-assign&lt;/code&gt;，需要与 &lt;code&gt;append&lt;/code&gt; 这种针对对象本身的方法区别开。&lt;/p&gt;
 &lt;h2&gt;immutable 对象的处理&lt;/h2&gt;
 &lt;p&gt;如果不使用列表，而使用字符串：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
