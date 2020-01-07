@@ -6,7 +6,11 @@
 site_prefix = "/"
 source_dir = "../src/"
 build_dir = "../dist/"
-template = "Kepler"
+template = {
+    "name": "Kepler",
+    "type": "local",
+    "path": "../Kepler"
+}
 index_page_size = 10
 archives_page_size = 20
 enable_jsdelivr = {
