@@ -12,6 +12,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+    <loc>https://wiki.imalan.cn/archives/vs-code-pylint-e1101-module-has-no-member/</loc>
+    <lastmod>2020-01-09</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
     <loc>https://wiki.imalan.cn/archives/variable-pass-paradim-in-python/</loc>
     <lastmod>2020-01-02</lastmod>
     <changefreq>always</changefreq>

@@ -1,16 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Thu, 09 Jan 2020 01:34:56 +0806</lastBuildDate><pubDate>Thu, 09 Jan 2020 01:34:56 +0806</pubDate><item><title>使用 PHP 执行 shell 脚本的权限问题</title><link>https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</link><description>&lt;p&gt;上一篇讲使用 GitHub webhook 来部署的问题，其中一步是用 PHP 执行一段 shell 脚本。类似于如下的 PHP 代码：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
-    &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cd somepath &amp;amp;&amp;amp; git pull --rebase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;把这段代码保存为 test.php，在终端中使用 &lt;code&gt;php test.php&lt;/code&gt; 执行可以得到正确的结果，但是在浏览器中访问这个 PHP 却不行。&lt;/p&gt;
-&lt;p&gt;除了安全模式、shell_exec 被禁用的问题之外，最大的可能是运行权限的问题。尝试在终端与浏览器中访问包含以下代码的 PHP 文件：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
-    &lt;span class="nb"&gt;shell_exec&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;whoami&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;十有八九会的到不同的结果，例如在终端中是 &lt;code&gt;alan&lt;/code&gt;（我的登录账户），在浏览器中是 &lt;code&gt;www&lt;/code&gt;（Nginx 的账户）。因此在浏览器中时 PHP 是以 www 去执行 git pull 的，这就会有权限问题。&lt;/p&gt;
-&lt;p&gt;可以让 &lt;code&gt;www&lt;/code&gt; 账户表现得像 &lt;code&gt;alan&lt;/code&gt; 账户，但是非常不推荐。最好的办法就是在终端里切换到 www 用户再重新 git clone，让本地 repo 的所有权为 www，即可。&lt;/p&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</guid><pubDate>Fri, 14 Jun 2019 09:42:00 +0806</pubDate></item><item><title>SSH 秘钥登陆远程服务器</title><link>https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/</link><description>&lt;p&gt;首先在本机上生成密钥对：&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Thu, 09 Jan 2020 01:37:28 +0806</lastBuildDate><pubDate>Thu, 09 Jan 2020 01:37:28 +0806</pubDate><item><title>SSH 秘钥登陆远程服务器</title><link>https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/</link><description>&lt;p&gt;首先在本机上生成密钥对：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh-keygen -t rsa
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;生成的本地秘钥位于：&lt;/p&gt;
@@ -408,4 +397,32 @@ original&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;Python 按值传参&lt;/li&gt;
 &lt;li&gt;警惕对引用进行 re-assign 与通过引用修改对象的区别&lt;/li&gt;
 &lt;/ol&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/variable-pass-paradim-in-python/</guid><pubDate>Thu, 02 Jan 2020 15:20:00 +0806</pubDate></item></channel></rss>
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/variable-pass-paradim-in-python/</guid><pubDate>Thu, 02 Jan 2020 15:20:00 +0806</pubDate></item><item><title>VS Code Pylint E1101 Module has no member 错误</title><link>https://wiki.imalan.cn/archives/vs-code-pylint-e1101-module-has-no-member/</link><description>&lt;p&gt;VS Code 出现类似这样的问题：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Pylint E1101 Module 'torch' has no 'from_numpy' member...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这是 Pylint 的问题，三种方案都行：&lt;/p&gt;
+&lt;h2&gt;行内禁用提示&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# pylint: disable=E1101&lt;/span&gt;
+&lt;span class="n"&gt;tensor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;torch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_numpy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np_array&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# pylint: enable=E1101&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;有点 ugly。&lt;/p&gt;
+&lt;h2&gt;设置忽略提示&lt;/h2&gt;
+&lt;p&gt;在 &lt;code&gt;.pylintrc&lt;/code&gt; 中：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[MASTER]
+extension-pkg-whitelist=numpy,torch,cv,cv2
+
+[TYPECHECK]
+ignored-modules=numpy,torch,cv,cv2
+ignored-classes=numpy,torch,cv,cv2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;也不是很优雅。&lt;/p&gt;
+&lt;h2&gt;将 Member 指定为 generated&lt;/h2&gt;
+&lt;p&gt;VS Code 设置：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;"python.linting.pylintArgs": [
+    "--errors-only",
+    "--generated-members=numpy.* ,torch.* ,cv2.* , cv.*"
+]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这个还可以。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/vs-code-pylint-e1101-module-has-no-member/</guid><pubDate>Thu, 09 Jan 2020 09:28:00 +0806</pubDate></item></channel></rss>
