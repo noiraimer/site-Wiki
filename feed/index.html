@@ -1,64 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Mon, 10 Feb 2020 12:05:19 +0806</lastBuildDate><pubDate>Mon, 10 Feb 2020 12:05:19 +0806</pubDate><item><title>Ubuntu 18.04 Bionic 国内软件源镜像</title><link>https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/</link><description>&lt;p&gt;替换软件源方法：首先备份原来的软件源配置：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo mv /etc/apt/sources.list /etc/apt/sources.list.old
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;创建新的配置文件，内容为下文所述的源列表：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo vim /etc/apt/sources.list
-&lt;span class="c1"&gt;# 添加下文所述软件源列表&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;然后依次：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get update
-sudo apt-get upgrade
-&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;中科大源&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
-deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse
-deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
-deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
-deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
-deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
-deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;阿里源&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;163 源&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
-deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse
-deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
-deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse
-deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;清华源&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse&lt;/code&gt;&lt;/pre&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/</guid><pubDate>Fri, 05 Jul 2019 15:19:00 +0806</pubDate></item><item><title>编译与配置 Boost 库</title><link>https://wiki.imalan.cn/archives/编译与配置 Boost 库/</link><description>&lt;p&gt;Boost 是 C++ 的一个增强库，可以看做 std 的扩展。在 Windows 上编译安装很简单。&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link><description>熊猫小A的Wiki站点</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/AlanDecode/site-Wiki@gh-pages/android-chrome-512x512.png</url><title>無知識 | 三無計劃</title><link>https://wiki.imalan.cn/</link></image><language>zh-CN</language><lastBuildDate>Thu, 13 Feb 2020 02:52:25 +0806</lastBuildDate><pubDate>Thu, 13 Feb 2020 02:52:25 +0806</pubDate><item><title>编译与配置 Boost 库</title><link>https://wiki.imalan.cn/archives/编译与配置 Boost 库/</link><description>&lt;p&gt;Boost 是 C++ 的一个增强库，可以看做 std 的扩展。在 Windows 上编译安装很简单。&lt;/p&gt;
 &lt;p&gt;首先下载代码包：&lt;a href="https://www.boost.org/users/history/"&gt;https://www.boost.org/users/history/&lt;/a&gt; 并解压，使用 Visual Studio 提供的 x64 兼容命令提示符工具进入源码目录，运行目录下的 bootstrap.bat 脚本，目录下将出现 bjam.exe 与 b2.exe 等文件。之后即可使用 bjam 工具编译。&lt;/p&gt;
 &lt;p&gt;实际上 Boost 库的绝大多数组件都是 header-only 的，也就是无需进一步编译生成可执行文件，只需要引入头文件即可，但是以下几个组件除外：&lt;/p&gt;
 &lt;ul&gt;
@@ -408,4 +349,35 @@ mount.davfs 你的WebDAV地址 你想要挂载到的目录&lt;/code&gt;&lt;/pre&
 注意2：如果你不执行第二句保存用户名密码，那么你以后挂载的时候都会要求输入用户名密码！&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;来自：&lt;a href="https://moe.best/linux-memo/mount-webdav.html"&gt;如何在各个平台下挂载WebDAV&lt;/a&gt;。&lt;/p&gt;
-</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/using-webdav-on-linux/</guid><pubDate>Mon, 10 Feb 2020 19:58:00 +0806</pubDate></item></channel></rss>
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/using-webdav-on-linux/</guid><pubDate>Mon, 10 Feb 2020 19:58:00 +0806</pubDate></item><item><title>ffmpeg 常用指令</title><link>https://wiki.imalan.cn/archives/ffmpeg-cheat-sheet/</link><description>&lt;p&gt;&lt;strong&gt;视频格式转换：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -i input.flv output.mp4
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;视频截取：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -ss &lt;span class="m"&gt;00&lt;/span&gt;:00:00 -t &lt;span class="m"&gt;00&lt;/span&gt;:00:30 -i input.mp4 -vcodec copy -acodec copy output.mp4
+&lt;span class="c1"&gt;# -ss 指定从什么时间开始&lt;/span&gt;
+&lt;span class="c1"&gt;# -t 指定需要截取多长时间&lt;/span&gt;
+&lt;span class="c1"&gt;# -i 指定输入文件&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;视频去除音频：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -i input.mp4 -map &lt;span class="m"&gt;0&lt;/span&gt;:0 -vcodec copy output.mp4
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;视频提取音频：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -i input.mp4 -f mp3 -vn output.mp3
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;视频剪裁：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -i input.mp4 -filter:v &lt;span class="s2"&gt;&amp;quot;crop=out_w:out_h:x:y&amp;quot;&lt;/span&gt; output.mp4
+&lt;span class="c1"&gt;# out_w: 输出宽度&lt;/span&gt;
+&lt;span class="c1"&gt;# out_h: 输出高度&lt;/span&gt;
+&lt;span class="c1"&gt;# (x, y): 左上角坐标，横向为x轴&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;视频拼接：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;先准备文本文件 filelist.txt，写入要合并的文件名：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;file input1.mp4
+file input2.mp4
+file input3.mp4
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;然后：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -f concat -i filelist.txt -c copy output.mp4
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意尺寸与格式等。&lt;/p&gt;
+</description><author>hi@imalan.cn (熊猫小A)</author><guid isPermaLink="true">https://wiki.imalan.cn/archives/ffmpeg-cheat-sheet/</guid><pubDate>Thu, 13 Feb 2020 10:38:00 +0806</pubDate></item></channel></rss>
