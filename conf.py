@@ -11,8 +11,8 @@ template = {
     "type": "local",
     "path": "../Kepler"
 }
-index_page_size = 10
-archives_page_size = 20
+index_page_size = 20
+archives_page_size = 30
 enable_jsdelivr = {
     "enabled": True,
     "repo": "noiraimer/site-wiki@gh-pages"
