@@ -3,7 +3,7 @@
 """
 
 # For Maverick
-site_prefix = "/site-Wiki/"
+site_prefix = "/"
 source_dir = "../src/"
 build_dir = "../dist/"
 template = {
@@ -26,7 +26,7 @@ site_logo = "${static_prefix}logo.png"
 site_build_date = "2020/1/31 16:51"
 author = "无尽藏海"
 email = ""
-author_homepage = "https://noiramr.cn"
+author_homepage = "https://wiki.noiramr.cn"
 description = "温故而知新"
 key_words = ['blog']
 language = 'zh-CN'
