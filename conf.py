@@ -31,13 +31,7 @@ description = "温故而知新"
 key_words = ['blog']
 language = 'zh-CN'
 
-valine = {
-    "enable": True,
-    "el": '#vcomments',
-    "appId": "A5LqJrDsqGpBkcSAG6rOaquz-gzGzoHsz",
-    "appKey": "MpkTdroEzvOmHrw5l1vnX8Oq",
-    "placeholder": "想破脑袋也不知道提示语写啥"
-}
+
 
 external_links = [
     {
