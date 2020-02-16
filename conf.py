@@ -51,14 +51,7 @@ external_links = [
         "url": "https://noiramr.cn",
         "brief": "温故而知新",
         "target": "_self"
-    },
-    {
-        "name": "春田花花",
-        "url": "",
-        "brief": "春眠不觉晓",
-        "target": "_blank"
     }
-
 ]
 nav = [
     {
