@@ -3,7 +3,7 @@
 """
 
 # For Maverick
-site_prefix = "https://wiki.imalan.cn/"
+site_prefix = "/"
 source_dir = "../src/"
 build_dir = "../dist/"
 template = {
@@ -15,72 +15,64 @@ index_page_size = 10
 archives_page_size = 20
 enable_jsdelivr = {
     "enabled": True,
-    "repo": "AlanDecode/site-Wiki@gh-pages"
+    "repo": "noiraimer/site-wiki@gh-pages"
 }
 category_by_folder = True
 for_manual_build_trigger = 1
 
 # 站点设置
-site_name = "無知識 | 三無計劃"
-site_logo = "${static_prefix}android-chrome-512x512.png"
-site_build_date = "2017-06-29T12:00+08:00"
-author = "熊猫小A"
-email = "hi@imalan.cn"
-author_homepage = "https://www.imalan.cn"
-description = "熊猫小A的Wiki站点"
-key_words = ['Maverick', '熊猫小A', 'Galileo', 'wiki']
+site_name = "解语知音"
+site_logo = "${static_prefix}logo.png"
+site_build_date = "2020/1/31 16:51"
+author = "无尽藏海"
+email = ""
+author_homepage = "https://noiramr.cn"
+description = "温故而知新"
+key_words = ['blog']
 language = 'zh-CN'
 
 valine = {
     "enable": True,
     "el": '#vcomments',
-    "appId": "2to78D9NRkvN8CTRtIneOcXL-gzGzoHsz",
-    "appKey": "ws5n5WDCDFVg5rhvqPceRiuA",
-    "visitor": True,
-    "recordIP": True,
-    "placeholder": "请不吝赐教"
+    "appId": "A5LqJrDsqGpBkcSAG6rOaquz-gzGzoHsz",
+    "appKey": "MpkTdroEzvOmHrw5l1vnX8Oq",
+    "placeholder": "想破脑袋也不知道提示语写啥"
 }
 
 external_links = [
     {
-        "name": "TRIPLE NULL",
-        "url": "https://www.imalan.cn",
-        "brief": "三是虚指。至于是哪三无，我唔知。"
+        "name": "友情链接",
+        "url": "${site_prefix}friends/",
+        "brief": "山水会知音",
+        "target": "_self"
     },
     {
-        "name": "BLOG",
-        "url": "https://blog.imalan.cn",
-        "brief": "熊猫小A的博客。隶属于「三无计划」。"
+        "name": "解语知音",
+        "url": "https://noiramr.cn",
+        "brief": "温故而知新",
+        "target": "_self"
     },
     {
-        "name": "LAB",
-        "url": "https://lab.imalan.cn",
-        "brief": "熊猫小A的实验室。隶属于「三无计划」。"
-    },
-    {
-        "name": "GITHUB",
-        "url": "https://github.com/AlanDecode",
-        "brief": "My GitHub"
-    },
-    {
-        "name": "CHANNEL",
-        "url": "https://t.me/triple_null",
-        "brief": "熊猫小A的广播。隶属于「三无计划」。"
+        "name": "春田花花",
+        "url": "",
+        "brief": "春眠不觉晓",
+        "target": "_blank"
     }
+
 ]
 nav = [
     {
-        "name": "HOME",
+        "name": "首页",
         "url": "${site_prefix}",
         "target": "_self"
     },
     {
-        "name": "ARCHIVES",
+        "name": "归档",
         "url": "${site_prefix}archives/",
         "target": "_self"
     },
     {
-        "name": "ABOUT",
+        "name": "关于",
         "url": "${site_prefix}about/",
         "target": "_self"
     }
@@ -88,69 +80,39 @@ nav = [
 
 social_links = [
     {
-        "name": "Twitter",
-        "url": "https://twitter.com/AlanDecode",
-        "icon": "gi gi-twitter"
+        "name": "RSS",
+        "url": "https://noiramr.cn/feed/index.xml",
+        "icon": ""
     },
     {
         "name": "GitHub",
-        "url": "https://github.com/AlanDecode",
-        "icon": "gi gi-github"
+        "url": "https://github.com/noiraimer",
+        "icon": ""
+    },
+        {
+        "name": "邮件",
+        "url": "mailto:liushu1187419589@live.com",
+        "icon": ""
     },
     {
-        "name": "Weibo",
-        "url": "https://weibo.com/5245109677/",
-        "icon": "gi gi-weibo"
-    }
+        "name": "语雀",
+        "url": "https://www.yuque.com/blancaimer",
+        "icon": ""
+    },
 ]
 
 head_addon = r'''
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
-<link rel="dns-prefetch" href="//static.imalan.cn" />
-<link rel="stylesheet" href="${static_prefix}brand_font/embed.css" />
-<style>.brand{font-family:FZCuJinLFW,serif;font-weight: normal!important;}</style>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="apple-touch-icon" sizes="180x180" href="${static_prefix}apple-touch-icon.png?v=PY43YeeEKx">
-<link rel="icon" type="image/png" sizes="32x32" href="${static_prefix}favicon-32x32.png?v=yyLyaqbyRG">
-<link rel="icon" type="image/png" sizes="16x16" href="${static_prefix}favicon-16x16.png?v=yyLyaqbyRG">
-<link rel="mask-icon" href="${static_prefix}safari-pinned-tab.svg?v=yyLyaqbyRG" color="#505050">
+<link rel="dns-prefetch" href="//noiramr.cn" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/noiraimer/Blog-With-GitHub-Boilerplate@gh-pages/css/custom.css">
+<script src="https://cdn.jsdelivr.net/gh/noiraimer/Blog-With-GitHub-Boilerplate@gh-pages/js/instant.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<script src="https://cdn.jsdelivr.net/gh/noiraimer/Blog-With-GitHub-Boilerplate@gh-pages/js/email-decode.min.js"></script>
 <link rel="shortcut icon" href="${static_prefix}favicon.ico?v=yyLyaqbyRG">
-<meta name="application-name" content="無知識">
-<meta name="apple-mobile-web-app-title" content="無知識">
-<meta name="msapplication-TileColor" content="#000000">
-<meta name="theme-color" content="#000000">
-<meta name="baidu-site-verification" content="Or6aUYr0De" />
 '''
 
 footer_addon = r'''
-<a no-style href="http://beian.miit.gov.cn" target="_blank">京ICP备18000133号-1</a> | 
-<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
 '''
 
 body_addon = r'''
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?5735ca789e45ace74acc43d939504ebd";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 '''
