@@ -5,316 +5,64 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">	
 
 <url>
-    <loc>https://wiki.imalan.cn/about/</loc>
-    <lastmod>2020-01-01</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.8</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/ffmpeg-cheat-sheet/</loc>
-    <lastmod>2020-02-13</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/using-webdav-on-linux/</loc>
-    <lastmod>2020-02-10</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/vs-code-pylint-e1101-module-has-no-member/</loc>
-    <lastmod>2020-01-09</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/variable-pass-paradim-in-python/</loc>
-    <lastmod>2020-01-02</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/命令行查看 SSL 证书过期时间/</loc>
-    <lastmod>2019-12-26</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Marching Cubes 算法提取等值面/</loc>
-    <lastmod>2019-11-01</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/WSL 2 中配置终端走主机代理/</loc>
-    <lastmod>2019-10-24</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/使用 Grid-Stride Loop 复用 CUDA 线程/</loc>
-    <lastmod>2019-09-29</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Windows 实现有线 + Wifi 同时上网（分管内外网）/</loc>
-    <lastmod>2019-08-26</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/编译与配置 Boost 库/</loc>
-    <lastmod>2019-07-06</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Ubuntu 18.04 Bionic 国内软件源镜像/</loc>
-    <lastmod>2019-07-05</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/SSH 秘钥登陆远程服务器/</loc>
-    <lastmod>2019-06-14</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/使用 PHP 执行 shell 脚本的权限问题/</loc>
-    <lastmod>2019-06-14</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/使用 GitHub webhook 自动部署/</loc>
-    <lastmod>2019-06-14</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Git 代理配置方案/</loc>
-    <lastmod>2019-06-09</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/常用设置代理命令/</loc>
-    <lastmod>2019-05-13</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/C++智能指针：原理与实现/</loc>
-    <lastmod>2019-05-08</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/在 Mac 中配置 Nginx + MySQL + PHP 环境/</loc>
-    <lastmod>2019-03-21</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/TensorFlow、Keras、CUDA、CuDNN 之间的版本要求/</loc>
+    <loc>/archives/🌎看问题的角度/</loc>
     <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/VS Code 中配置 Anaconda/</loc>
+    <loc>/archives/🤪自我认知与职位匹配/</loc>
     <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/vtkMath 旋转向量/</loc>
-    <lastmod>2019-02-17</lastmod>
+    <loc>/archives/🌉社会现象/</loc>
+    <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/Linux 上安装 Docker/</loc>
-    <lastmod>2019-02-16</lastmod>
+    <loc>/archives/👀态度观点/</loc>
+    <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/C++ 保证某个 Class 在全程序仅有一个实例/</loc>
-    <lastmod>2018-07-30</lastmod>
+    <loc>/archives/诸子百家名言/</loc>
+    <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/自定义 Hexo 文章链接形式/</loc>
-    <lastmod>2018-07-30</lastmod>
+    <loc>/archives/民族节日/</loc>
+    <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/Ubuntu 使用 expect 自动登录 SSH/</loc>
-    <lastmod>2018-06-14</lastmod>
+    <loc>/archives/哲学的概念/</loc>
+    <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/解决 Word 多级列表编号变成黑块的问题/</loc>
-    <lastmod>2018-05-26</lastmod>
+    <loc>/archives/十九大报告/</loc>
+    <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.imalan.cn/archives/解决 Ubuntu gnome-soft+ 占用过高 CPU 的问题/</loc>
-    <lastmod>2018-05-09</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Ubuntu 更改下载、视频等默认文件夹存放位置/</loc>
-    <lastmod>2018-05-04</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Windows 上安装 Hexo/</loc>
-    <lastmod>2018-05-04</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/更改 GRUB 默认启动项与超时时间/</loc>
-    <lastmod>2018-05-03</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/使 Ubuntu 开机自动挂载硬盘分区/</loc>
-    <lastmod>2018-05-03</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/解决 Ubuntu 上网易云音乐 1.1.0 无法以普通权限运行的问题/</loc>
-    <lastmod>2018-04-30</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/解决WPS for Linux 字体不全的问题/</loc>
-    <lastmod>2018-04-29</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Ubuntu 开启 Samba 文件共享/</loc>
-    <lastmod>2018-04-29</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/升级 CMake 与 ccmake/</loc>
-    <lastmod>2018-04-29</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Ubuntu 装机配置/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Ubuntu 更改文件默认打开方式/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/使 Ubuntu 开机自动以 root 权限执行命令/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Ubuntu 设置环境变量/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Windows 装机配置/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/安装 NVIDIA 驱动与配置 CUDA 开发环境/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/编译安装 ITK 与 RTK 开发库/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/部署 Typecho/</loc>
-    <lastmod>2018-04-28</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-</url>
-
-<url>
-    <loc>https://wiki.imalan.cn/archives/Hexo 环境部署与发布/</loc>
-    <lastmod>2018-04-28</lastmod>
+    <loc>/archives/易混实词辨析/</loc>
+    <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
