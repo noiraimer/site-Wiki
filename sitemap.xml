@@ -5,6 +5,13 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">	
 
 <url>
+    <loc>/about/</loc>
+    <lastmod>2020-02-01</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.8</priority>
+</url>
+
+<url>
     <loc>/archives/🌎看问题的角度/</loc>
     <lastmod>2019-02-21</lastmod>
     <changefreq>always</changefreq>
