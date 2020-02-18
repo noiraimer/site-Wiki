@@ -60,32 +60,13 @@ nav = [
 ]
 
 social_links = [
-    {
-        "name": "RSS",
-        "url": "https://noiramr.cn/feed/index.xml",
-        "icon": ""
-    },
-    {
-        "name": "GitHub",
-        "url": "https://github.com/noiraimer",
-        "icon": ""
-    },
-        {
-        "name": "邮件",
-        "url": "mailto:liushu1187419589@live.com",
-        "icon": ""
-    },
-    {
-        "name": "语雀",
-        "url": "https://www.yuque.com/blancaimer",
-        "icon": ""
-    },
 ]
 
 head_addon = r'''
+<meta name="theme-color" content="#ffffff">
 <meta http-equiv="x-dns-prefetch-control" content="on">
 <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
-<link rel="dns-prefetch" href="//noiramr.cn" />
+<link rel="dns-prefetch" href="//wiki.noiramr.cn" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/noiraimer/site-Wiki@gh-pages/css/custom.css">
 <script src="https://cdn.jsdelivr.net/gh/noiraimer/Blog-With-GitHub-Boilerplate@gh-pages/js/instant.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
 <script src="https://cdn.jsdelivr.net/gh/noiraimer/Blog-With-GitHub-Boilerplate@gh-pages/js/email-decode.min.js"></script>
